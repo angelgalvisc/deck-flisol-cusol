@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deep Agents · Harness Engineering and AutoResearch</title>
+<!-- Sin dependencia de red. El render usa fuentes del sistema con fallbacks reales:
+     Sans: Helvetica Neue → Helvetica Now Display → Inter → Helvetica → Arial → sans-serif
+     Mono: SF Mono → JetBrains Mono → IBM Plex Mono → Menlo → Monaco → monospace
+     En macOS y Windows las primeras opciones existen nativamente. En Linux/CI, si se
+     necesita el look exacto de Inter, instalarlo localmente o usar --fonts=google en
+     build_html.py (opcional, no default). -->
+<style>
+/* ============================================================
+   datastrat · Slides · Assembly Guide
+   canvas 1600×900 · margen 72px · único acento coral
+   CSS base compartido por todos los tipos de slide.
+   ============================================================ */
+
+:root {
+  /* ---------- paleta primaria ---------- */
+  --ink:        #0F0E12;
+  --ink-soft:   #2E3136;
+  --mute:       #7C7B80;
+  --soft:       #A1A5AA;
+  --rule:       #B0AFB4;
+  --bg:         #F8F8F8;
+  --coral:      #DD4B29;
+
+  /* ---------- paleta auxiliar ---------- */
+  /* uso solo cuando el contraste cromático es indispensable */
+  --aux-blue:   #1270B8;
+  --aux-green:  #1AA167;
+  --aux-yellow: #D89A00;
+  --aux-gray:   #BDBDBD;
+
+  /* ---------- tipografía ---------- */
+  --sans: "Helvetica Neue", "Helvetica Now Display", "Inter", Helvetica, Arial, sans-serif;
+  --mono: "SF Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Monaco, monospace;
+
+  /* ---------- geometría ---------- */
+  --m: 72px;                /* margen lateral del slide */
+  --canvas-w: 1600px;
+  --canvas-h: 900px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: #1a1a1a;      /* fondo oscuro alrededor del slide en preview */
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.deck-wrap {
+  padding: 40px 20px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* ============================================================
+   SLIDE · frame base
+   ============================================================ */
+.slide {
+  width: var(--canvas-w);
+  height: var(--canvas-h);
+  background: var(--bg);
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;          /* regla de contención global */
+  box-shadow: 0 0 0 1px #2a2a2a;
+}
+.slide.dark {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* ============================================================
+   TOPBAR / BOTTOMBAR
+   ============================================================ */
+.topbar, .bottombar {
+  position: absolute;
+  left: var(--m);
+  right: var(--m);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--mute);
+}
+.topbar    { top: 36px; }
+.bottombar { bottom: 36px; }
+
+.topbar .coord      { color: var(--coral); }
+.bottombar .num     { color: var(--coral); font-weight: 500; }
+
+.dark .topbar       { color: rgba(248,248,248,0.55); }
+.dark .bottombar    { color: rgba(248,248,248,0.55); }
+.dark .topbar .coord,
+.dark .bottombar .num { color: var(--coral); }
+
+/* ============================================================
+   RULES · líneas superior e inferior
+   ============================================================ */
+.rule-top, .rule-bot {
+  position: absolute;
+  left: var(--m);
+  right: var(--m);
+  height: 1px;
+  background: var(--rule);
+}
+.rule-top { top: 76px; }
+.rule-bot { bottom: 76px; }
+
+.dark .rule-top,
+.dark .rule-bot { background: rgba(248,248,248,0.22); }
+
+/* ============================================================
+   TIPOGRAFÍA · sistema base
+   ============================================================ */
+.dot { color: var(--coral); }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.action-title {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  max-width: 1280px;
+}
+
+.subtitle {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  color: var(--ink-soft);
+  max-width: 1100px;
+}
+
+/* Header compartido de todo slide no-cover / no-divider */
+.slide .eyebrow-pos {
+  position: absolute;
+  left: var(--m);
+  top: 140px;
+}
+.slide .title-pos {
+  position: absolute;
+  left: var(--m);
+  top: 180px;
+  right: var(--m);
+}
+
+/* ============================================================
+   TYPE STYLES · se inyectan aquí
+   cada slide-{type}.html.tpl aporta su propio <style>
+   el build_html.py los fusiona en este bloque
+   ============================================================ */
+/* ---------- tipo: anexo ---------- */
+/* ---------- anexo · detalle técnico ---------- */
+.anexo-slide .eyebrow-pos .eyebrow { color: var(--coral); }
+
+.anexo-slide .body {
+  position: absolute;
+  left: var(--m);
+  top: 320px;
+  right: var(--m);
+  bottom: 140px;
+  overflow: hidden;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.anexo-slide .body .sub-block + .sub-block {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--rule);
+}
+.anexo-slide .body h3 {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin-bottom: 10px;
+}
+.anexo-slide .body pre {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  white-space: pre;
+  overflow-x: auto;
+  padding: 10px 14px;
+  border: 1px solid var(--rule);
+  background: #fdfdfd;
+}
+.anexo-slide .body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.anexo-slide .body table th,
+.anexo-slide .body table td {
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--rule);
+}
+.anexo-slide .body table th {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute);
+  border-bottom: 1px solid var(--ink);
+}
+
+.anexo-slide .caption {
+  position: absolute;
+  left: var(--m);
+  bottom: 130px;
+  right: var(--m);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--mute);
+  border-top: 1px solid var(--rule);
+  padding-top: 10px;
+}
+.anexo-slide .caption .ref { color: var(--coral); }
+
+/* ============================================================
+   PRINT · export PDF
+   ============================================================ */
+@page {
+  size: 16.6667in 9.375in;   /* 1600×900 px a 96 DPI */
+  margin: 0;
+}
+
+@media print {
+  /* Chrome headless aplica 'economy mode' por default y elide
+     backgrounds y colores de fondo. print-color-adjust: exact fuerza
+     a respetar todo color declarado: backgrounds de slide, swatches
+     de leyenda, fills de SVG, fondos oscuros de divisores. */
+  html, body, .slide, .slide * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  html, body {
+    width: 16.6667in;
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+  }
+
+  /* El preview usa flex centrado; en print eso deforma el page box. */
+  .deck-wrap {
+    display: block;
+    width: 16.6667in;
+    padding: 0;
+    margin: 0;
+  }
+
+  .slide {
+    width: 16.6667in;
+    height: 9.375in;
+    margin: 0;
+    box-shadow: none;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .slide:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="deck-wrap">
+<section class="slide anexo-slide s01">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title"></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  /* global override: ocultar caption vacío del template para dejar solo rule-bot */
+  .anexo-slide .caption:empty { display: none !important; border: none !important; padding: 0 !important; }
+  /* global: gris muted 30% más oscuro */
+  .slide { --mute: #56555A; }
+  /* global: eyebrow +3pt */
+  .anexo-slide .eyebrow-pos .eyebrow { font-size: 14px; }
+  /* global: subir titulo y subtitulo para que queden cerca del rule-top */
+  .anexo-slide .title-pos { top: 110px !important; }
+  .s01.anexo-slide .body { top: 140px !important; bottom: 100px !important; overflow: visible !important; display: flex !important; flex-direction: column; justify-content: space-between; }
+  .s01-center { display: flex; flex-direction: column; justify-content: center; flex: 1; }
+  .s01-cover { padding: 0; }
+  .s01-cover .display { font-size: 180px; font-weight: 700; line-height: 0.95; color: var(--ink); letter-spacing: -0.02em; }
+  .s01-cover .display .dot { color: var(--coral); }
+  .s01-cover .sub { font-size: 36px; font-weight: 500; color: var(--ink); margin-top: 40px; }
+  .s01-cover .rule { width: 200px; height: 1px; background: var(--coral); margin-top: 24px; }
+  .s01-bio { margin-top: 24px; }
+  .s01-bio .name { font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.2; }
+  .s01-bio .role { font-size: 17px; font-weight: 400; color: var(--ink); margin-bottom: 10px; line-height: 1.2; }
+  .s01-bio .email { font-family: var(--mono); font-size: 14px; color: var(--coral); }
+</style>
+<div class="s01-center">
+  <div class="s01-cover">
+    <div class="display">Deep Agents<span class="dot">.</span></div>
+    <div class="sub">Harness Engineering and AutoResearch.</div>
+    <div class="rule"></div>
+  </div>
+</div>
+<div class="s01-bio">
+  <div class="name">Angel Galvis</div>
+  <div class="role">Founder and Managing Partner at Datastrat.</div>
+  <div class="email">a@datastrat.co</div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">01 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s02">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">La promesa de la base tecnológica es la misma de siempre<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s02.anexo-slide .body { top: 230px !important; bottom: 200px !important; overflow: visible !important; display: flex !important; align-items: center; justify-content: center; }
+  .s02-promesa { display: flex; justify-content: space-around; align-items: center; gap: 80px; width: 100%; max-width: 1300px; margin: 0 auto; }
+  .s02-promesa .word { font-size: 88px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; white-space: nowrap; }
+</style>
+<div class="s02-promesa">
+  <div class="word">Velocidad</div>
+  <div class="word">Escalabilidad</div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">02 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s03">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">La promesa se mantiene. Los entornos cambian<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s03.anexo-slide .body { top: 300px !important; bottom: 100px !important; overflow: visible !important; }
+  .s03-topo { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 60px; align-items: stretch; padding-top: 0; }
+  .s03-topo .divider-v { background: var(--rule); width: 1px; height: 380px; align-self: center; }
+  .s03-topo .col { padding: 0 16px; display: flex; flex-direction: column; align-items: flex-start; }
+  .s03-topo .h { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 24px; }
+  .s03-topo .diag { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 260px; margin-bottom: 24px; }
+  .s03-topo .diag svg { width: 100%; max-width: 500px; height: auto; }
+  .s03-topo .sub { font-size: 22px; font-weight: 500; color: var(--ink); align-self: center; text-align: center; max-width: 540px; line-height: 1.35; }
+  .s03-topo .sub-coral { font-size: 17px; font-weight: 500; color: var(--coral); align-self: center; text-align: center; max-width: 560px; line-height: 1.4; margin-top: 10px; }
+</style>
+<div class="s03-topo">
+  <div class="col">
+    <div class="h">ENTORNO 01</div>
+    <div class="diag">
+      <svg viewBox="0 0 540 320" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Humano y Software conectados por flecha bidireccional">
+        <defs>
+          <marker id="arrow-start" viewBox="0 0 12 12" refX="2" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+            <path d="M 10 1 L 2 6 L 10 11 z" fill="#0F0E12"/>
+          </marker>
+          <marker id="arrow-end" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+            <path d="M 2 1 L 10 6 L 2 11 z" fill="#0F0E12"/>
+          </marker>
+        </defs>
+        <g font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" font-size="20" font-weight="500" fill="#0F0E12">
+          <rect x="40" y="135" width="150" height="56" rx="4" fill="none" stroke="#0F0E12" stroke-width="1.2"/>
+          <text x="115" y="170" text-anchor="middle">Humano</text>
+          <rect x="350" y="135" width="150" height="56" rx="4" fill="none" stroke="#0F0E12" stroke-width="1.2"/>
+          <text x="425" y="170" text-anchor="middle">Software</text>
+          <line x1="200" y1="163" x2="340" y2="163" stroke="#0F0E12" stroke-width="1.6" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="sub">Solo el humano opera sobre el software.</div>
+  </div>
+  <div class="divider-v"></div>
+  <div class="col">
+    <div class="h">ENTORNO 02</div>
+    <div class="diag">
+      <svg viewBox="0 0 540 320" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Humano e IA conectados con flechas bidireccionales al mismo Software">
+        <defs>
+          <marker id="arrow-start-2" viewBox="0 0 12 12" refX="2" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+            <path d="M 10 1 L 2 6 L 10 11 z" fill="#0F0E12"/>
+          </marker>
+          <marker id="arrow-end-2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+            <path d="M 2 1 L 10 6 L 2 11 z" fill="#0F0E12"/>
+          </marker>
+        </defs>
+        <g font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif" font-size="20" font-weight="500" fill="#0F0E12">
+          <rect x="20" y="40" width="150" height="56" rx="4" fill="none" stroke="#0F0E12" stroke-width="1.2"/>
+          <text x="95" y="75" text-anchor="middle">Humano</text>
+          <rect x="20" y="224" width="150" height="56" rx="4" fill="none" stroke="#0F0E12" stroke-width="1.2"/>
+          <text x="95" y="259" text-anchor="middle">IA</text>
+          <rect x="370" y="132" width="150" height="56" rx="4" fill="none" stroke="#0F0E12" stroke-width="1.2"/>
+          <text x="445" y="167" text-anchor="middle">Software</text>
+          <line x1="185" y1="85" x2="362" y2="156" stroke="#0F0E12" stroke-width="1.6" marker-start="url(#arrow-start-2)" marker-end="url(#arrow-end-2)"/>
+          <line x1="185" y1="235" x2="362" y2="164" stroke="#0F0E12" stroke-width="1.6" marker-start="url(#arrow-start-2)" marker-end="url(#arrow-end-2)"/>
+          <line x1="95" y1="100" x2="95" y2="220" stroke="#0F0E12" stroke-width="1.6" marker-start="url(#arrow-start-2)" marker-end="url(#arrow-end-2)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="sub">Humano e IA operan sobre el mismo software.</div>
+    <div class="sub-coral">El código está dejando de ser observado línea a línea (se mantiene auditable).</div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">03 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s04">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow">CASO A</div>
+  <div class="title-pos">
+    <h1 class="action-title"></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s04.anexo-slide .body { top: 170px !important; bottom: 100px !important; overflow: visible !important; }
+  .body > .s04 { padding-top: 0; max-width: 1440px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box; font-family: var(--sans); gap: 20px; }
+  .s04 .top-row { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; align-items: start; }
+  .s04 .setup,
+  .s04 .pivote { font-size: 22px; font-weight: 400; line-height: 1.5; color: var(--ink); }
+  .s04 .top-row .pivote { text-align: right; }
+  .s04 .coral-line { color: var(--coral); font-weight: 600; }
+  .s04 .track { display: grid; grid-template-columns: auto 1fr auto; column-gap: 32px; row-gap: 10px; align-items: center; }
+  .s04 .track .l-start, .s04 .track .l-end { font-size: 14px; font-weight: 600; color: var(--mute); letter-spacing: 0.12em; text-transform: uppercase; }
+  .s04 .track .l-end { justify-self: end; }
+  .s04 .track .node-start, .s04 .track .node-end { font-size: 22px; font-weight: 600; color: var(--ink); }
+  .s04 .track .node-end { justify-self: end; }
+  .s04 .track .arrow { grid-column: 2; }
+  .s04 .track .arrow svg { display: block; width: 100%; height: 12px; }
+  .s04 .flows { display: flex; flex-direction: column; gap: 14px; max-width: 1180px; margin: 0 auto; width: 100%; }
+  .s04 .flow-row { display: grid; grid-template-columns: 180px 1fr; column-gap: 36px; align-items: baseline; padding: 16px 24px; border: 1px solid transparent; border-radius: 4px; }
+  .s04 .flow-row.ready { border-color: rgba(221, 75, 41, 0.45); }
+  .s04 .flow-label { font-size: 14px; font-weight: 600; color: var(--ink); letter-spacing: 0.12em; text-transform: uppercase; padding-top: 6px; }
+  .s04 .flow-row.ready .flow-label { color: var(--coral); }
+  .s04 .flow-content { display: flex; flex-direction: column; gap: 4px; }
+  .s04 .flow-steps { font-size: 20px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+  .s04 .agents { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+  .s04 .agent { display: flex; flex-direction: column; gap: 6px; }
+  .s04 .agent .role { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--mute); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+  .s04 .agent .role .time { color: var(--ink); font-weight: 700; margin-left: 6px; }
+  .s04 .agent.deep .role { color: var(--coral); }
+  .s04 .agent.deep .role .time { color: var(--coral); }
+  .s04 .agent .desc { font-size: 17px; font-weight: 400; color: var(--ink); line-height: 1.45; }
+  .s04 .agent .desc strong { font-weight: 600; }
+  .s04 .cifra-row { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; font-size: 20px; flex-wrap: wrap; padding-top: 8px; }
+  .s04 .cifra-label { color: var(--mute); }
+  .s04 .cifra-value { color: var(--ink); font-weight: 700; font-size: 22px; letter-spacing: -0.005em; }
+</style>
+<div class="s04">
+  <div class="top-row">
+    <div class="setup">Una empresa quiere detectar y priorizar oportunidades de negocio con el sector estatal.</div>
+    <div class="pivote"><span class="coral-line">La revisión manual no escala.</span><br>Cientos de páginas por pliego, pocos días para detectar requisitos con precisión.</div>
+  </div>
+  <div class="track">
+    <span class="l-start">Mismo inicio</span>
+    <span class="spacer"></span>
+    <span class="l-end">Mismo final</span>
+    <span class="node-start">SECOP II</span>
+    <span class="arrow"><svg viewBox="0 0 1000 12" preserveAspectRatio="none"><line x1="0" y1="6" x2="988" y2="6" stroke="#0F0E12" stroke-width="1" vector-effect="non-scaling-stroke"/><polygon points="988,1 1000,6 988,11" fill="#0F0E12"/></svg></span>
+    <span class="node-end">propuesta</span>
+  </div>
+  <div class="flows">
+    <div class="flow-row">
+      <div class="flow-label">Hoy</div>
+      <div class="flow-content">
+        <div class="flow-steps">lectura humana &nbsp;→&nbsp; priorización por experiencia &nbsp;→&nbsp; cruce manual con cientos de páginas</div>
+      </div>
+    </div>
+    <div class="flow-row ready">
+      <div class="flow-label">Agent-ready</div>
+      <div class="flow-content">
+        <div class="agents">
+          <div class="agent">
+            <div class="role">Agente · scout <span class="time">· &lt; 5 min</span></div>
+            <div class="desc">monitorea SECOP, filtra y prioriza con UNSPSC + keywords + rúbrica corporativa. Entrega <strong>top viables del día</strong>.</div>
+          </div>
+          <div class="agent deep">
+            <div class="role">Deep Agent · analista <span class="time">· &lt; 15 min</span></div>
+            <div class="desc">cruza pliego vs RUP, perfil financiero y experiencia. Entrega <strong>recomendación OFERTAR / NO OFERTAR + plan de acción</strong>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cifra-row">
+    <span class="cifra-label">Procesos nuevos en SECOP II</span>
+    <span class="cifra-value">~5.000 / día · ~1,9 M / año (2025)</span>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">04 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s05">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow">CASO B</div>
+  <div class="title-pos">
+    <h1 class="action-title"></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s05.anexo-slide .body { top: 170px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s05 { padding-top: 0; max-width: 1440px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; box-sizing: border-box; font-family: var(--sans); gap: 18px; }
+  .s05 .top-row { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; align-items: start; }
+  .s05 .setup,
+  .s05 .pivote { font-size: 22px; font-weight: 400; line-height: 1.5; color: var(--ink); }
+  .s05 .top-row .pivote { text-align: right; }
+  .s05 .track { display: grid; grid-template-columns: auto 1fr auto; column-gap: 32px; row-gap: 10px; align-items: center; }
+  .s05 .track .l-start, .s05 .track .l-end { font-size: 14px; font-weight: 600; color: var(--mute); letter-spacing: 0.12em; text-transform: uppercase; }
+  .s05 .track .l-end { justify-self: end; }
+  .s05 .track .node-start, .s05 .track .node-end { font-size: 22px; font-weight: 600; color: var(--ink); }
+  .s05 .track .node-end { justify-self: end; }
+  .s05 .track .arrow { grid-column: 2; }
+  .s05 .track .arrow svg { display: block; width: 100%; height: 12px; }
+  .s05 .flows { display: flex; flex-direction: column; gap: 14px; max-width: 960px; margin: 0 auto; width: 100%; }
+  .s05 .flow-row { display: grid; grid-template-columns: 160px 1fr; column-gap: 36px; align-items: baseline; padding: 16px 24px; border: 1px solid transparent; border-radius: 4px; }
+  .s05 .flow-row.ready { border-color: rgba(221, 75, 41, 0.45); }
+  .s05 .flow-label { font-size: 14px; font-weight: 600; color: var(--ink); letter-spacing: 0.12em; text-transform: uppercase; padding-top: 6px; }
+  .s05 .flow-row.ready .flow-label { color: var(--coral); }
+  .s05 .flow-content { display: flex; flex-direction: column; gap: 4px; }
+  .s05 .flow-steps,
+  .s05 .flow-gloss { font-size: 22px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+  .s05 .cifra-row { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; font-size: 20px; flex-wrap: wrap; }
+  .s05 .cifra-label { color: var(--mute); }
+  .s05 .cifra-value { color: var(--ink); font-weight: 700; font-size: 22px; letter-spacing: -0.005em; }
+</style>
+<div class="s05">
+  <div class="top-row">
+    <div class="setup">Un restaurante vende por WhatsApp.<br>Antes de preparar y despachar, necesita confirmar el pago.</div>
+    <div class="pivote">El pedido llega por conversación.<br>La verificación del pago sigue siendo manual.</div>
+  </div>
+  <div class="track">
+    <span class="l-start">Mismo inicio</span>
+    <span class="spacer"></span>
+    <span class="l-end">Mismo final</span>
+    <span class="node-start">pedido WhatsApp</span>
+    <span class="arrow"><svg viewBox="0 0 1000 12" preserveAspectRatio="none"><line x1="0" y1="6" x2="988" y2="6" stroke="#0F0E12" stroke-width="1" vector-effect="non-scaling-stroke"/><polygon points="988,1 1000,6 988,11" fill="#0F0E12"/></svg></span>
+    <span class="node-end">despacho</span>
+  </div>
+  <div class="flows">
+    <div class="flow-row">
+      <div class="flow-label">Hoy</div>
+      <div class="flow-content">
+        <div class="flow-steps">transferencia &nbsp;→&nbsp; pantallazo &nbsp;→&nbsp; revisión humana</div>
+        <div class="flow-gloss">pago existe, pero no como estado verificable</div>
+      </div>
+    </div>
+    <div class="flow-row ready">
+      <div class="flow-label">Agent-ready</div>
+      <div class="flow-content">
+        <div class="flow-steps">cobro Push/QR/link &nbsp;→&nbsp; estado de pago verificable</div>
+        <div class="flow-gloss">el agente puede validar monto, referencia y estado</div>
+      </div>
+    </div>
+  </div>
+  <div class="cifra-row">
+    <span class="cifra-label">Ventas originadas o cerradas por canales conversacionales</span>
+    <span class="cifra-value">~COP $20–30 billones</span>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">05 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s06">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Cómo un agente le habla a Stripe en 2026<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px">Hay dos interfaces. Ambas son nativas para agentes.</div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s06.anexo-slide .body { top: 320px !important; bottom: 100px !important; overflow: visible !important; }
+  .s06 { padding-top: 0; }
+  .s06 .cols { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 28px; align-items: start; }
+  .s06 .divider-v { background: var(--rule); width: 1px; height: 260px; }
+  .s06 .col-h { font-family: var(--mono); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  .s06 .codebox { background: #F2F2F2; border-radius: 4px; padding: 14px 16px; font-family: var(--mono); font-size: 13px; color: var(--ink); line-height: 1.7; margin-bottom: 10px; white-space: pre-wrap; }
+  .s06 .codebox .c { color: #4D8060; }
+  .s06 .code-note { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; }
+  .s06 .rule { height: 1px; background: var(--rule); margin: 16px 0; }
+  .s06 .footer { font-size: 22px; font-weight: 400; color: var(--ink); line-height: 1.45; }
+  .s06 .footer .mono { font-family: var(--mono); font-size: 20px; }
+  .s06 .footer .coral-line { color: var(--coral); font-family: var(--mono); font-size: 20px; }
+</style>
+<div class="s06">
+  <div class="cols">
+    <div>
+      <div class="col-h">CLI — comando directo</div>
+      <div class="codebox">$ stripe get          <span class="c"># interfaz directa · el agente ya sabe qué llamar</span>
+  /v1/payment_intents/  <span class="c"># objeto Stripe: PaymentIntent · estado operativo del pago</span>
+  pi_3QxYzAbCdEf...     <span class="c"># id del pago que quiero verificar</span></div>
+      <div class="code-note">El agente empieza por la ruta.</div>
+    </div>
+    <div class="divider-v"></div>
+    <div>
+      <div class="col-h">MCP — protocolo descubrible</div>
+      <div class="codebox">tool: fetch_stripe_resources  <span class="c"># herramienta disponible expuesta por Stripe MCP</span>
+resource: payment_intent/     <span class="c"># objeto específico que contiene el estado</span>
+  pi_3QxYzAbCdEf...           <span class="c"># id del pago que quiero verificar</span></div>
+      <div class="code-note">El agente empieza por la tarea, no por la ruta.</div>
+    </div>
+  </div>
+  <div class="rule"></div>
+  <div class="footer">
+    En cualquiera de los dos casos el sistema valida: <span class="mono">estado · monto · moneda · referencia</span>.<br>
+    Si coincide, autoriza. &nbsp;&nbsp;<span class="coral-line">Webhook: payment_intent.succeeded</span>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">06 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s07">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title"></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s07.anexo-slide .body { top: 120px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s07 { padding-top: 0; max-width: 1440px; display: flex; flex-direction: column; gap: 14px; font-family: var(--sans); height: 100%; box-sizing: border-box; }
+  .s07 .eyebrow-line { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; color: var(--mute); }
+  .s07 .setup { font-size: 22px; font-weight: 400; line-height: 1.4; color: var(--ink); }
+  .s07 .observation { font-size: 22px; font-weight: 400; line-height: 1.4; color: var(--ink); }
+  .s07 .rule { height: 1px; background: var(--rule); }
+  .s07 .section-h { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .s07 .hoy-flow { display: grid; grid-template-columns: 1fr auto 1.6fr auto 1.4fr auto 1fr; column-gap: 24px; row-gap: 0; align-items: start; }
+  .s07 .hoy-flow .stage-h { font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 12px; }
+  .s07 .hoy-flow .arrow { font-family: var(--mono); font-size: 20px; color: var(--ink); padding-top: 2px; line-height: 1; }
+  .s07 .hoy-flow .items { font-size: 18px; color: var(--ink-soft); line-height: 1.55; }
+  .s07 .closing-text { font-size: 16px; color: var(--ink); line-height: 1.45; margin-top: 12px; }
+  .s07 .synthesis { font-size: 20px; font-weight: 400; line-height: 1.5; color: var(--ink); max-width: 1320px; }
+  .s07 .synthesis .accent { color: var(--coral); }
+  .s07 .cifras { display: flex; flex-direction: column; gap: 4px; padding-top: 4px; }
+  .s07 .bottom-group { margin-top: 40px; display: flex; flex-direction: column; gap: 14px; }
+  .s07 .cifras .cifra-row { display: grid; grid-template-columns: auto 1fr auto; column-gap: 20px; align-items: center; }
+  .s07 .cifras .cifra-label { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+  .s07 .cifras .cifra-line { height: 1px; background: var(--rule); }
+  .s07 .cifras .cifra-value { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--ink); white-space: nowrap; letter-spacing: -0.005em; }
+</style>
+<div class="s07">
+  <div class="eyebrow-line">CASO C · Cuenta de ahorros empresarial</div>
+  <div class="setup">Una empresa nueva quiere abrir una cuenta de ahorros mediante un proceso 100% digital. La cuenta de ahorros debe estar asociada al NIT.</div>
+
+  <div class="rule"></div>
+
+  <div class="observation">Sigue siendo una operación regulada y fragmentada.</div>
+
+  <div class="rule"></div>
+
+  <div>
+    <div class="section-h">Hoy · proceso fragmentado</div>
+    <div class="hoy-flow">
+      <div>
+        <div class="stage-h">Solicitud</div>
+        <div class="items"></div>
+      </div>
+      <div class="arrow">→</div>
+      <div>
+        <div class="stage-h">Documentos</div>
+        <div class="items">Cámara de comercio<br>RUT<br>Composición accionaria<br>Balance inicial<br>Tarjeta profesional del contador<br>Antecedentes del contador</div>
+      </div>
+      <div class="arrow">→</div>
+      <div>
+        <div class="stage-h">Validación</div>
+        <div class="items">Representante legal<br>Beneficiarios finales<br>Riesgo / cumplimiento<br>Revisión humana</div>
+      </div>
+      <div class="arrow">→</div>
+      <div>
+        <div class="stage-h">Activación</div>
+        <div class="items">Cuenta lista para operar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-group">
+    <div class="rule"></div>
+
+    <div>
+      <div class="section-h">Lo que cambia con deep agents</div>
+      <div class="synthesis">Un deep agent puede sostener la operación completa — reúne requisitos, verifica documentos, consulta sistemas, valida estados, escala excepciones y deja evidencia. No es atención automatizada: es <span class="accent">operación interna asistida por agentes</span>.</div>
+    </div>
+
+    <div class="cifras">
+    <div class="cifra-row">
+      <span class="cifra-label">Sociedades nuevas con NIT PJ / año</span>
+      <span class="cifra-line"></span>
+      <span class="cifra-value">~82.500</span>
+    </div>
+    <div class="cifra-row">
+      <span class="cifra-label">Ventas anualizadas potenciales</span>
+      <span class="cifra-line"></span>
+      <span class="cifra-value">COP $2–4 billones</span>
+    </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">07 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s08">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Cómo evolucionó la ingeniería de IA<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px">En veinte años pasamos de etiquetar datasets a construir sistemas que diseñan sus propios experimentos.</div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s08.anexo-slide .body { top: 270px !important; bottom: 80px !important; overflow: visible !important; }
+  .s08 { padding-top: 0; }
+  .s08 .timeline { display: flex; justify-content: center; padding: 24px 0 0 0; }
+  .s08 .timeline-grid { display: grid; grid-template-columns: repeat(5, 1fr); width: 1240px; column-gap: 0; position: relative; }
+  .s08 .timeline-line { position: absolute; top: 14px; left: 10%; right: 10%; height: 1px; background: var(--ink); z-index: 0; }
+  .s08 .col { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; padding: 0 6px; }
+  .s08 .cap-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--ink); margin-bottom: 18px; }
+  .s08 .col.coral .cap-dot { background: var(--coral); width: 18px; height: 18px; margin-bottom: 16px; }
+  .s08 .name { font-family: var(--mono); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; margin-bottom: 4px; }
+  .s08 .verb { font-family: var(--mono); font-size: 15px; color: var(--mute); margin-bottom: 22px; letter-spacing: 0.02em; }
+  .s08 .eq { font-family: var(--mono); font-size: 15px; color: var(--ink); line-height: 1.55; min-height: 72px; }
+  .s08 .eq em { font-style: italic; color: var(--mute); }
+  .s08 .nomen { margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--rule); display: flex; justify-content: center; }
+  .s08 .nomen-inner { width: 1240px; }
+  .s08 .nomen-h { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .s08 .nomen-body { font-family: var(--mono); font-size: 13.5px; color: var(--mute); line-height: 1.75; }
+  .s08 .nomen-body strong { color: var(--ink); font-weight: 700; }
+  .s08 .nomen-body .phase { display: inline-block; min-width: 110px; color: var(--coral); font-weight: 700; }
+</style>
+<div class="s08">
+  <div class="timeline">
+    <div class="timeline-grid">
+      <div class="timeline-line"></div>
+      <div class="col">
+        <div class="cap-dot"></div>
+        <div class="name">data</div>
+        <div class="verb">estructura</div>
+        <div class="eq">D = {(x,y)}<br>~ P<sub>world</sub></div>
+      </div>
+      <div class="col">
+        <div class="cap-dot"></div>
+        <div class="name">model</div>
+        <div class="verb">entrena</div>
+        <div class="eq">θ* = argmin<sub>θ</sub><br>E<sub>D</sub>[L(f<sub>θ</sub>(x), y)]</div>
+      </div>
+      <div class="col">
+        <div class="cap-dot"></div>
+        <div class="name">context</div>
+        <div class="verb">cura</div>
+        <div class="eq">y ~ P<sub>θ*</sub>(· | c)<br>c = C(q, M<sub>q</sub>, T, E)</div>
+      </div>
+      <div class="col">
+        <div class="cap-dot"></div>
+        <div class="name">harness</div>
+        <div class="verb">opera</div>
+        <div class="eq">a<sub>t</sub> ~ π<sub>θ*</sub>(s<sub>t</sub>, c<sub>t</sub>)<br>o<sub>t</sub> = τ( G(a<sub>t</sub>) )</div>
+      </div>
+      <div class="col coral">
+        <div class="cap-dot"></div>
+        <div class="name">autoresearch</div>
+        <div class="verb">experimenta</div>
+        <div class="eq">Δ ~ π<sub>θ*</sub>(z, A)<br>keep T<sub>Δ</sub>(z) <em>si</em> m' &lt; m</div>
+      </div>
+    </div>
+  </div>
+  <div class="nomen">
+    <div class="nomen-inner">
+      <div class="nomen-h">Nomenclatura</div>
+      <div class="nomen-body">
+        <span class="phase">data</span> <strong>D</strong> dataset · <strong>P<sub>world</sub></strong> distribución del mundo · <strong>x, y</strong> entrada / salida<br>
+        <span class="phase">model</span> <strong>θ</strong> pesos del modelo · <strong>θ*</strong> pesos óptimos tras entrenamiento · <strong>L</strong> función de pérdida · <strong>E<sub>D</sub>[·]</strong> esperanza sobre D<br>
+        <span class="phase">context</span> <strong>(·)</strong> argumento sobre el que se distribuye (placeholder) · <strong>c</strong> contexto · <strong>P<sub>θ*</sub></strong> distribución del modelo entrenado · <strong>C(·)</strong> función de curación · <strong>q</strong> query · <strong>M<sub>q</sub></strong> memoria · <strong>T</strong> tools · <strong>E</strong> evidencia<br>
+        <span class="phase">harness</span> <strong>s<sub>t</sub>, a<sub>t</sub>, o<sub>t</sub></strong> estado / acción / observación en el paso <strong>t</strong> · <strong>π<sub>θ*</sub></strong> política del modelo entrenado · <strong>G</strong> validación (guardrail) · <strong>τ</strong> tool<br>
+        <span class="phase">autoresearch</span> <strong>z</strong> configuración editable · <strong>M</strong> métrica · <strong>m = M(z)</strong> valor de la métrica · <strong>Δ</strong> cambio propuesto · <strong>T<sub>Δ</sub>(·)</strong> operación que aplica Δ a z · <strong>A</strong> arena (spec + espacio editable + métrica + presupuesto + regla)
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">08 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s09">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Cuándo nació cada fase<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px">Cada disciplina se consolidó cuando la anterior maduró.</div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s09.anexo-slide .body { top: 240px !important; bottom: 70px !important; overflow: visible !important; }
+  .body > .s09 { padding-top: 0; max-width: 1380px; font-family: var(--sans); }
+  .s09 .row-h { display: grid; grid-template-columns: 180px 240px 1fr; column-gap: 28px; padding: 8px 0; font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--mute); letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--ink); }
+  .s09 .row { display: grid; grid-template-columns: 180px 240px 1fr; column-gap: 28px; padding: 10px 0; align-items: baseline; border-bottom: 1px solid var(--rule); }
+  .s09 .row:last-of-type { border-bottom: none; }
+  .s09 .row .fase { font-family: var(--mono); font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
+  .s09 .row .when { font-family: var(--mono); font-size: 13px; color: var(--mute); line-height: 1.4; }
+  .s09 .row .when strong { color: var(--ink); font-weight: 700; }
+  .s09 .row .idea { font-size: 17px; color: var(--ink); line-height: 1.4; font-weight: 400; }
+  .s09 .row.coral .fase { color: var(--coral); }
+  .s09 .row.coral .idea { color: var(--ink); font-weight: 500; }
+  .s09 .row.coral .idea em { color: var(--coral); font-style: normal; font-weight: 600; }
+  .s09 .refs { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--rule); }
+  .s09 .refs-h { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--mute); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .s09 .refs-list { font-family: var(--mono); font-size: 11px; color: var(--mute); line-height: 1.6; }
+  .s09 .refs-list .ref { margin-bottom: 4px; }
+  .s09 .refs-list .marker { color: var(--coral); font-weight: 700; margin-right: 8px; }
+  .s09 .refs-list .url { color: var(--ink); }
+  .s09 .row .marker-inline { color: var(--coral); font-weight: 700; font-family: var(--mono); font-size: 11px; vertical-align: super; margin-left: 4px; }
+</style>
+<div class="s09">
+  <div class="row-h">
+    <div>Fase</div>
+    <div>Cuándo se consolidó</div>
+    <div>La idea central</div>
+  </div>
+  <div class="row">
+    <div class="fase">data<span class="marker-inline">1</span></div>
+    <div class="when"><strong>~2010s</strong><br>era big data · GFS (2003) + MapReduce (2004)</div>
+    <div class="idea">estructurar el mundo en un dataset</div>
+  </div>
+  <div class="row">
+    <div class="fase">model<span class="marker-inline">2</span></div>
+    <div class="when"><strong>2017</strong><br>Transformers · Vaswani et al.</div>
+    <div class="idea">entrenar pesos óptimos sobre ese dataset</div>
+  </div>
+  <div class="row">
+    <div class="fase">context<span class="marker-inline">3</span></div>
+    <div class="when"><strong>sep 2025</strong><br>Anthropic</div>
+    <div class="idea">curar qué tokens condicionan al modelo</div>
+  </div>
+  <div class="row">
+    <div class="fase">harness<span class="marker-inline">4</span></div>
+    <div class="when"><strong>mar 2026</strong><br>Vivek Trivedy · LangChain</div>
+    <div class="idea">envolver el modelo con un loop gobernado · <em>Agent = Model + Harness</em></div>
+  </div>
+  <div class="row coral">
+    <div class="fase">autoresearch<span class="marker-inline">5</span></div>
+    <div class="when"><strong>mar 2026</strong><br>Andrej Karpathy</div>
+    <div class="idea">y ahora, <em>que el sistema diseñe sus propios experimentos</em></div>
+  </div>
+  <div class="refs">
+    <div class="refs-h">Fuentes (APA 7)</div>
+    <div class="refs-list">
+      <div class="ref"><span class="marker">1a</span>Ghemawat, S., Gobioff, H., &amp; Leung, S.-T. (2003). The Google file system. <em>SOSP '03</em>. <span class="url">research.google/pubs/the-google-file-system</span></div>
+      <div class="ref"><span class="marker">1b</span>Dean, J., &amp; Ghemawat, S. (2004). MapReduce: Simplified data processing on large clusters. <em>OSDI '04</em>. <span class="url">research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters</span></div>
+      <div class="ref"><span class="marker">2</span>Vaswani, A., et al. (2017). Attention is all you need. <em>NeurIPS 2017</em>. <span class="url">arxiv.org/abs/1706.03762</span></div>
+      <div class="ref"><span class="marker">3</span>Rajasekaran, P., Dixon, E., Ryan, C., &amp; Hadfield, J. (2025). Effective context engineering for AI agents. <em>Anthropic Engineering</em>. <span class="url">anthropic.com/engineering/effective-context-engineering-for-ai-agents</span></div>
+      <div class="ref"><span class="marker">4</span>Trivedy, V. (2026, March 10). The anatomy of an agent harness. <em>LangChain Blog</em>. <span class="url">langchain.com/blog/the-anatomy-of-an-agent-harness</span></div>
+      <div class="ref"><span class="marker">5</span>Karpathy, A. (2026). <em>autoresearch</em> [Software]. GitHub. <span class="url">github.com/karpathy/autoresearch</span></div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">09 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s10">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Asimetría de la verificación<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px">La IA automatiza primero las tareas que puede verificar bien.</div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s10.anexo-slide .body { top: 300px !important; bottom: 100px !important; overflow: visible !important; }
+  .s10 { padding-top: 0; }
+  .s10 .chart { display: flex; justify-content: center; padding: 24px 0; }
+  .s10 .source { font-size: 13px; color: var(--mute); margin-top: 24px; font-family: var(--mono); }
+  .s10 .source em { font-style: italic; }
+</style>
+<div class="s10">
+  <div class="chart">
+    <svg role="img" aria-labelledby="s07-title s07-desc" viewBox="0 0 1100 270" preserveAspectRatio="xMidYMax meet" style="width: 1100px; max-width: 100%;">
+      <title id="s07-title">Asimetría de la verificación</title>
+      <desc id="s07-desc">Cinco dominios distribuidos sobre un eje de verificabilidad de baja a alta. Legal y Riesgo a la izquierda con puntos pequeños. Pagos al centro. Código y Matemáticas a la derecha con puntos grandes.</desc>
+      <g font-family="SF Mono, JetBrains Mono, monospace" font-size="22" fill="#0F0E12" text-anchor="middle" font-weight="500">
+        <text x="110" y="96">Legal</text>
+        <text x="330" y="96">Riesgo</text>
+        <text x="550" y="96">Pagos</text>
+        <text x="770" y="96">Código</text>
+        <text x="990" y="96">Matemáticas</text>
+      </g>
+      <circle cx="110" cy="160" r="6"  fill="#0F0E12"/>
+      <circle cx="330" cy="160" r="9"  fill="#0F0E12"/>
+      <circle cx="550" cy="160" r="14" fill="#DD4B29"/>
+      <circle cx="770" cy="160" r="18" fill="#0F0E12"/>
+      <circle cx="990" cy="160" r="20" fill="#0F0E12"/>
+      <line x1="80" y1="200" x2="1020" y2="200" stroke="#0F0E12" stroke-width="1"/>
+      <g font-family="SF Mono, JetBrains Mono, monospace" font-size="22" fill="#56555A" font-weight="500">
+        <text x="80"  y="238">baja</text>
+        <text x="550" y="238" text-anchor="middle">Verificabilidad</text>
+        <text x="1020" y="238" text-anchor="end">alta</text>
+      </g>
+    </svg>
+  </div>
+  <div class="source">Basado en: Jason Wei<br><em>"Asymmetry of verification and verifier's law"</em></div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">10 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s11">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Dónde los agentes realmente crean valor<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px">Importan cuando entran en cadenas verificables de decisión, ejecución y consecuencia.</div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s11.anexo-slide .body { top: 280px !important; bottom: 60px !important; overflow: visible !important; }
+  .s11 { padding-top: 0; display: flex; justify-content: center; }
+  .s11 .matrix-wrap { position: relative; }
+  .s11 .y-axis { position: absolute; left: -64px; top: 0; height: 460px; display: flex; flex-direction: column; justify-content: space-between; font-family: var(--mono); font-size: 20px; color: var(--mute); }
+  .s11 .y-label { writing-mode: vertical-rl; transform: rotate(180deg); position: absolute; left: -106px; top: 110px; font-family: var(--mono); font-size: 19px; color: var(--mute); letter-spacing: 0.05em; }
+  .s11 .matrix { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; width: 1140px; height: 460px; border: 1px solid var(--ink); }
+  .s11 .q { padding: 20px 26px; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .s11 .q.right { border-right: none; }
+  .s11 .q.bottom { border-bottom: none; }
+  .s11 .q.coral { background: rgba(221, 75, 41, 0.08); }
+  .s11 .q-label { font-family: var(--mono); font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 12px; letter-spacing: 0.04em; }
+  .s11 .q-label.coral { color: var(--coral); }
+  .s11 .q-list { font-size: 19px; color: var(--ink); line-height: 1.5; list-style: none; padding: 0; margin: 0; }
+  .s11 .q-list li { margin-bottom: 2px; }
+  .s11 .x-axis { display: flex; justify-content: space-between; align-items: center; width: 1140px; margin-top: 16px; font-family: var(--mono); font-size: 20px; color: var(--mute); }
+  .s11 .x-axis span:nth-child(2) { font-size: 19px; letter-spacing: 0.05em; }
+</style>
+<div class="s11">
+  <div class="matrix-wrap">
+    <div class="y-label">Complejidad operativa</div>
+    <div class="y-axis"><span>alta</span><span>baja</span></div>
+    <div class="matrix">
+      <div class="q">
+        <div class="q-label">Juicio humano</div>
+        <ul class="q-list">
+          <li>alta ambigüedad</li>
+          <li>criterio experto</li>
+          <li>baja estandarización</li>
+        </ul>
+      </div>
+      <div class="q right coral">
+        <div class="q-label coral">ZONA DE MAYOR VALOR PARA AGENTES</div>
+        <ul class="q-list">
+          <li>generación de código con tests automáticos</li>
+          <li>refactoring guiado por métricas</li>
+          <li>diagnóstico y triage de bugs</li>
+          <li>análisis de datos con métrica clara</li>
+          <li>investigación con citas verificables</li>
+        </ul>
+      </div>
+      <div class="q bottom">
+        <div class="q-label">Uso conversacional</div>
+        <ul class="q-list">
+          <li>atención</li>
+          <li>orientación</li>
+          <li>respuesta</li>
+        </ul>
+      </div>
+      <div class="q right bottom">
+        <div class="q-label">Automatización simple</div>
+        <ul class="q-list">
+          <li>reglas claras</li>
+          <li>tareas repetibles</li>
+          <li>bajo riesgo</li>
+          <li>ejecución lineal</li>
+        </ul>
+      </div>
+    </div>
+    <div class="x-axis">
+      <span>baja</span>
+      <span>Verificabilidad</span>
+      <span>alta</span>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">11 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s12">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">La IA del Entorno 02 tiene muchas formas<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s12.anexo-slide .body { top: 230px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s12 { padding-top: 0; max-width: 1200px; }
+  .s12 .taxonomy { margin-bottom: 36px; }
+  .s12 .row { display: grid; grid-template-columns: 280px 1fr; gap: 32px; padding: 10px 0; align-items: baseline; }
+  .s12 .row .k { font-family: var(--mono); font-size: 27px; font-weight: 600; color: var(--ink); letter-spacing: -0.005em; }
+  .s12 .row .v { font-size: 26px; color: var(--mute); line-height: 1.3; }
+  .s12 .row.coral .k { color: var(--coral); font-weight: 700; }
+  .s12 .row.coral .v { color: var(--ink); font-weight: 500; }
+  .s12 .quote { font-size: 22px; font-weight: 400; color: var(--ink); font-style: italic; line-height: 1.5; max-width: 1000px; }
+  .s12 .quote .q { color: var(--coral); font-style: normal; }
+  .s12 .cite { font-family: var(--mono); font-size: 13px; color: var(--mute); margin-top: 16px; }
+</style>
+<div class="s12">
+  <div class="taxonomy">
+    <div class="row"><span class="k">Chatbot</span><span class="v">conversa, responde</span></div>
+    <div class="row"><span class="k">Copilot</span><span class="v">sugiere; el humano ejecuta</span></div>
+    <div class="row"><span class="k">Workflow</span><span class="v">ejecuta una secuencia predefinida</span></div>
+    <div class="row coral"><span class="k">AGENTE</span><span class="v">decide su propio camino y usa herramientas dinámicamente</span></div>
+  </div>
+  <div class="quote">
+    <span class="q">«</span> Los agentes son sistemas donde los LLMs dirigen dinámicamente sus propios procesos y uso de herramientas, manteniendo control sobre cómo cumplen las tareas. <span class="q">»</span>
+  </div>
+  <div class="cite">─ Anthropic, Building Effective Agents (dic 2024)</div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">12 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s13">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">El horizonte de tarea de los agentes se expande<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px">La frontera ya no es solo responder mejor. Es sostener trabajo útil durante más tiempo.</div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s13.anexo-slide .body { top: 230px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s13 { padding-top: 0; display: flex; flex-direction: column; font-family: var(--sans); }
+  .s13 .chart { display: flex; justify-content: center; }
+  .s13 .chart svg { width: 1200px; max-width: 100%; height: auto; }
+  .s13 .below { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+  .s13 .row-1 { display: grid; grid-template-columns: 820px 1fr; gap: 40px; align-items: start; }
+  .s13 .read-box { border-left: 2px solid var(--coral); padding: 10px 14px; }
+  .s13 .read-box .h { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--coral); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .s13 .read-box .b { font-size: 15px; color: var(--ink); line-height: 1.45; }
+  .s13 .sources { font-family: var(--mono); font-size: 11px; color: var(--mute); line-height: 1.5; padding-top: 4px; }
+  .s13 .sources .h { font-weight: 700; color: var(--mute); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .s13 .insight { font-size: 18px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+</style>
+<div class="s13">
+  <div class="chart">
+    <svg role="img" aria-labelledby="s10-title s10-desc" viewBox="0 0 1320 500" preserveAspectRatio="xMidYMid meet">
+      <title id="s10-title">Horizonte de tarea al 50% de éxito (METR TH1.1)</title>
+      <desc id="s10-desc">Eje X temporal mar 2023 a feb 2026. Eje Y logarítmico de 1 minuto a 100 horas. Modelos pre-frontera muted; Opus 4.6 y Mythos resaltados en coral. Líneas de referencia en 8h y 40h.</desc>
+
+      <line x1="120" y1="60" x2="120" y2="420" stroke="#0F0E12" stroke-width="1"/>
+      <line x1="120" y1="420" x2="1140" y2="420" stroke="#0F0E12" stroke-width="1"/>
+
+      <g font-family="SF Mono, JetBrains Mono, monospace" font-size="18" fill="#56555A">
+        <text x="108" y="425" text-anchor="end">1min</text>
+        <text x="108" y="325" text-anchor="end">10min</text>
+        <text x="108" y="240" text-anchor="end">1h</text>
+        <text x="108" y="145" text-anchor="end">10h</text>
+        <text x="108" y="65" text-anchor="end">100h</text>
+      </g>
+
+      <g stroke="#A1A5AA" stroke-width="0.8" stroke-dasharray="3,4">
+        <line x1="120" y1="170" x2="1140" y2="170"/>
+        <line x1="120" y1="100" x2="1140" y2="100"/>
+      </g>
+      <g font-family="SF Mono, JetBrains Mono, monospace" font-size="13" fill="#56555A">
+        <text x="128" y="164">8h · jornada</text>
+        <text x="128" y="94">40h · semana</text>
+      </g>
+
+      <g>
+        <circle cx="180" cy="368" r="5" fill="#56555A"/>
+        <circle cx="380" cy="252" r="5" fill="#56555A"/>
+        <circle cx="500" cy="215" r="5" fill="#56555A"/>
+        <circle cx="620" cy="210" r="5" fill="#56555A"/>
+        <circle cx="780" cy="178" r="5" fill="#56555A"/>
+      </g>
+      <g font-family="SF Mono, JetBrains Mono, monospace" font-size="16" fill="#56555A">
+        <text x="192" y="372">GPT-4 0314 · 3.5min</text>
+        <text x="392" y="256">Claude 3.7 · 59m</text>
+        <text x="512" y="219">o3 · 2h01m</text>
+        <text x="632" y="214">GPT-5 · 2h17m</text>
+        <text x="792" y="182">Opus 4.5 · 4h49m</text>
+      </g>
+
+      <circle cx="940" cy="135" r="9" fill="#DD4B29"/>
+      <text x="956" y="128" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="22" font-weight="700" fill="#DD4B29">Opus 4.6 · 14.5h</text>
+      <circle cx="1080" cy="92" r="9" fill="#DD4B29"/>
+      <text x="1094" y="98" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="22" font-weight="700" fill="#DD4B29">Mythos · 16h+</text>
+
+      <g font-family="SF Mono, JetBrains Mono, monospace" font-size="18" fill="#56555A">
+        <text x="180" y="450" text-anchor="middle">mar 2023</text>
+        <text x="500" y="450" text-anchor="middle">2024</text>
+        <text x="780" y="450" text-anchor="middle">2025</text>
+        <text x="1080" y="450" text-anchor="middle">feb 2026</text>
+      </g>
+
+      <text x="120" y="488" font-family="SF Mono, JetBrains Mono, monospace" font-size="14" fill="#56555A">METR TH1.1 · horizonte se duplica cada ~7 meses (post-2023: ~4.3 meses)</text>
+    </svg>
+  </div>
+
+  <div class="below">
+    <div class="row-1">
+      <div class="read-box">
+        <div class="h">Cómo leer el eje Y</div>
+        <div class="b">Cada punto = duración humana estimada de la tarea en que el modelo logra 50% de éxito. Mide dificultad de tarea — no tiempo real de ejecución de la IA.</div>
+      </div>
+      <div class="sources">
+        <div class="h">Fuentes</div>
+        METR, Task-Completion Time Horizons of Frontier AI Models, 2026<br>
+        METR, Time Horizon 1.1, 2026<br>
+        Kwa et al., Measuring AI Ability to Complete Long Software Tasks, arXiv, 2025/2026<br>
+        * Mythos Preview: METR LinkedIn post, evaluación temprana marzo 2026
+      </div>
+    </div>
+    <div class="insight">Si el horizonte crece, el trabajo deja de parecer una consulta. Empieza a parecerse a una operación.</div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">13 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s14">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Por qué pasar de agentes a deep agents<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px">Cuando el horizonte de tarea crece, un agente simple deja de bastar.</div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s14.anexo-slide .body { top: 280px !important; bottom: 100px !important; overflow: visible !important; }
+  .s14 { padding-top: 0; }
+  .s14 .top-row { display: grid; grid-template-columns: 1fr auto; column-gap: 64px; align-items: center; margin-bottom: 36px; }
+  .s14 .stages { display: flex; flex-direction: column; gap: 4px; }
+  .s14 .stage { display: grid; grid-template-columns: 320px 70px auto; align-items: baseline; padding: 4px 0; }
+  .s14 .stage .k { font-family: var(--sans); font-size: 25px; font-weight: 500; color: var(--ink); }
+  .s14 .stage .arrow { font-family: var(--mono); font-size: 22px; color: var(--rule); }
+  .s14 .stage .v { font-family: var(--sans); font-size: 25px; color: var(--ink); }
+  .s14 .callout { border: 1px solid var(--coral); padding: 28px 32px; max-width: 400px; text-align: center; font-size: 24px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+  .s14 .closing { font-size: 18px; color: var(--ink); line-height: 1.55; max-width: 900px; }
+  .s14 .closing .insight { color: var(--coral); }
+</style>
+<div class="s14">
+  <div class="top-row">
+    <div class="stages">
+      <div class="stage"><span class="k">más tiempo</span><span class="arrow">──→</span><span class="v">exige planeación</span></div>
+      <div class="stage"><span class="k">más contexto</span><span class="arrow">──→</span><span class="v">exige gestión de contexto</span></div>
+      <div class="stage"><span class="k">más subtareas</span><span class="arrow">──→</span><span class="v">exige delegación</span></div>
+      <div class="stage"><span class="k">más sesiones</span><span class="arrow">──→</span><span class="v">exige memoria</span></div>
+      <div class="stage"><span class="k">más herramientas</span><span class="arrow">──→</span><span class="v">exige harness</span></div>
+      <div class="stage"><span class="k">más riesgo</span><span class="arrow">──→</span><span class="v">exige evaluación y control</span></div>
+    </div>
+    <div class="callout">Deep agents = agentes con harness para trabajo largo.</div>
+  </div>
+  <div class="closing">
+    No necesitamos deep agents porque el modelo "piense más".<br>
+    Los necesitamos porque el trabajo ya dura más, se ramifica más y se rompe más.<br><br>
+    Cuando el horizonte crece, el cuello de botella deja de ser el modelo. Pasa a ser <span class="insight">el sistema que lo contiene</span>.
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">14 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s15">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Qué es un harness<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s15.anexo-slide .body { top: 220px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s15 { padding-top: 0; max-width: 1440px; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; }
+  .s15 .main-row { display: grid; grid-template-columns: 1fr 1.05fr; column-gap: 60px; align-items: start; }
+  .s15 .components-label { font-size: 18px; color: var(--ink); margin-bottom: 16px; font-weight: 500; }
+  .s15 .row { display: grid; grid-template-columns: 200px 1fr; gap: 20px; padding: 10px 0; align-items: baseline; }
+  .s15 .row .k { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: 0.04em; }
+  .s15 .row .v { font-size: 18px; color: var(--ink); line-height: 1.4; }
+  .s15 .defs { display: flex; flex-direction: column; gap: 12px; }
+  .s15 .def { border-left: 2px solid var(--coral); padding: 6px 14px; }
+  .s15 .def .src { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--coral); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+  .s15 .def .q { font-size: 18px; font-style: italic; color: var(--ink); line-height: 1.4; }
+  .s15 .closing { font-size: 22px; font-weight: 500; color: var(--ink); line-height: 1.4; margin-top: auto; padding-top: 20px; }
+  .s15 .closing .insight { color: var(--coral); }
+</style>
+<div class="s15">
+  <div class="main-row">
+    <div>
+      <div class="components-label">Los 4 componentes mínimos:</div>
+      <div class="components">
+        <div class="row"><span class="k">PLANEACIÓN</span><span class="v">descomposición de tareas largas en pasos verificables</span></div>
+        <div class="row"><span class="k">MEMORIA</span><span class="v">contexto activo + persistencia entre sesiones</span></div>
+        <div class="row"><span class="k">HERRAMIENTAS</span><span class="v">APIs, MCP, CLIs, search, code exec</span></div>
+        <div class="row"><span class="k">GUARDRAILS</span><span class="v">sandbox, límites de gasto, auditoría</span></div>
+      </div>
+    </div>
+    <div class="defs">
+      <div class="def">
+        <div class="src">Mitchell Hashimoto</div>
+        <div class="q">Cada vez que encuentras que un agente comete un error, diseñas una solución para que ese agente no vuelva a cometer ese mismo error.</div>
+      </div>
+      <div class="def">
+        <div class="src">OpenAI</div>
+        <div class="q">Harness engineering es diseñar entornos, intención y bucles de retroalimentación para que los agentes ejecuten trabajo confiable.</div>
+      </div>
+      <div class="def">
+        <div class="src">LangChain · Vivek Trivedy</div>
+        <div class="q">Agent = Model + Harness.</div>
+      </div>
+      <div class="def">
+        <div class="src">Anthropic</div>
+        <div class="q">El harness es el sistema de instrucciones, restricciones y orquestación que permite que un modelo actúe como agente.</div>
+      </div>
+    </div>
+  </div>
+  <div class="closing">
+    El modelo es el motor. <span class="insight">El harness es lo que lo vuelve confiable.</span>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">15 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s16">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title"></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s16.slide {
+    background-color: #0F0E12 !important;
+    background-image: url('../assets/s12_harness.png') !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: cover !important;
+  }
+  .s16 .topbar, .s16 .bottombar, .s16 .rule-top, .s16 .rule-bot,
+  .s16 .eyebrow-pos, .s16 .title-pos, .s16 .body, .s16 .caption {
+    display: none !important;
+  }
+</style>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">16 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s17">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Quién más dice que esto importa<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s17.anexo-slide .body { top: 250px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s17 { padding-top: 0; max-width: 1300px; }
+  .s17 .quote { font-size: 24px; font-weight: 400; color: var(--ink); font-style: italic; line-height: 1.5; margin-bottom: 14px; }
+  .s17 .quote .q { color: var(--coral); font-style: normal; font-size: 28px; }
+  .s17 .quote p { margin: 0 0 10px 0; }
+  .s17 .cite { font-family: var(--mono); font-size: 14px; color: var(--mute); margin-bottom: 32px; }
+  .s17 .context-label { font-size: 18px; color: var(--ink); margin-bottom: 14px; font-weight: 500; }
+  .s17 .context-list { font-size: 18px; color: var(--ink); line-height: 1.7; padding-left: 0; list-style: none; margin: 0; }
+</style>
+<div class="s17">
+  <div class="quote">
+    <p><span class="q">«</span> Every company in the world today needs to have an OpenClaw strategy — an agentic systems strategy.</p>
+    <p>Just as we all had our Linux strategy.<br>Just as we all had to have an internet strategy.<br>Just as we all needed a mobile and cloud strategy. <span class="q">»</span></p>
+  </div>
+  <div class="cite">─ Jensen Huang, CEO Nvidia · GTC 2026, 16 de marzo</div>
+  <div class="context-label">Contexto que lo hace todavía más fuerte:</div>
+  <ul class="context-list">
+    <li>OpenClaw fue creado el 25 de enero de 2026.</li>
+    <li>250.000+ stars en GitHub en 60 días.</li>
+    <li>Proyecto open source de crecimiento más rápido en la historia.</li>
+    <li>Nvidia no compitió.</li>
+    <li>Lanzó NemoClaw — versión enterprise — desarrollada con el creador de OpenClaw.</li>
+  </ul>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">17 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s18">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Esto no es teoría.  Harnesses en producción en 2026<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s18.anexo-slide .body { top: 250px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s18 { padding-top: 0; }
+  .s18 .cols { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 40px; }
+  .s18 .col-h { font-family: var(--mono); font-size: 16px; font-weight: 700; color: var(--mute); letter-spacing: 0.05em; padding-bottom: 16px; border-bottom: 1px solid var(--rule); margin-bottom: 22px; }
+  .s18 .product { margin-bottom: 28px; }
+  .s18 .product .name { font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+  .s18 .product .meta { font-size: 17px; color: var(--mute); line-height: 1.5; }
+  .s18 .product .stars { font-family: var(--mono); color: var(--coral); }
+  .s18 .closing { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--rule); font-size: 22px; font-weight: 500; color: var(--ink); line-height: 1.45; }
+  .s18 .closing .insight { color: var(--coral); }
+</style>
+<div class="s18">
+  <div class="cols">
+    <div>
+      <div class="col-h">PROPIETARIO</div>
+      <div class="product">
+        <div class="name">Claude Code</div>
+        <div class="meta">Anthropic</div>
+      </div>
+      <div class="product">
+        <div class="name">Codex</div>
+        <div class="meta">OpenAI</div>
+      </div>
+    </div>
+    <div>
+      <div class="col-h">OPEN SOURCE</div>
+      <div class="product">
+        <div class="name">OpenClaw</div>
+        <div class="meta">Peter Steinberger · ene 2026<br>Modular: brain/hands/session<br><span class="stars">250k+ stars en 60 días</span></div>
+      </div>
+      <div class="product">
+        <div class="name">Hermes Agent</div>
+        <div class="meta">Nous Research, feb 2026<br>Memoria persistente<br>Auto-mejora skills<br><span class="stars">66k+ stars en 2 meses</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="col-h">ENTERPRISE</div>
+      <div class="product">
+        <div class="name">NemoClaw</div>
+        <div class="meta">Nvidia, sobre OpenClaw<br>Stack de seguridad y escalabilidad</div>
+      </div>
+    </div>
+  </div>
+  <div class="closing">
+    Memoria persistente entre sesiones<br>
+    = un agente asesor financiero que <span class="insight">no pregunta dos veces lo mismo al mismo cliente</span>.
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">18 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s19">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Por eso cada empresa necesita una estrategia de Harness Engineering<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s19.anexo-slide .body { top: 250px !important; bottom: 90px !important; overflow: visible !important; }
+  .s19 { padding-top: 0; display: flex; flex-direction: column; align-items: center; }
+  .s19 .layer { border: 1px solid var(--ink); border-radius: 8px; padding: 14px 24px; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; }
+  .s19 .layer.outer { border: 2px solid var(--coral); padding-bottom: 18px; }
+  .s19 .layer .label { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 8px; text-align: center; letter-spacing: 0.04em; }
+  .s19 .layer.outer .label { color: var(--coral); }
+  .s19 .layer .content { font-size: 15px; color: var(--ink); line-height: 1.55; text-align: center; margin-bottom: 12px; }
+  .s19 .layer.outer { width: 920px; }
+  .s19 .layer.middle { width: 760px; background: var(--bg); margin-top: 8px; }
+  .s19 .layer.inner { width: 520px; background: #F2F2F2; margin-top: 8px; padding-bottom: 14px; }
+  .s19 .layer.inner .content { margin-bottom: 0; }
+  .s19 .closing { margin-top: 24px; font-size: 17px; color: var(--ink); line-height: 1.55; max-width: 1000px; text-align: left; }
+  .s19 .closing .insight { color: var(--coral); }
+</style>
+<div class="s19">
+  <div class="layer outer">
+    <div class="label">HARNESS EMPRESARIAL — construido por la empresa (moat)</div>
+    <div class="content">
+      Identidad y autorización<br>
+      Conocimiento y fuentes de verdad<br>
+      Skills<br>
+      Riesgo, control y compliance<br>
+      Mejora continua
+    </div>
+    <div class="layer middle">
+      <div class="label">HARNESS BASE — provisto por el proveedor</div>
+      <div class="content">
+        runtime, memoria, MCP, sandbox, sub-agentes<br>
+        Claude Code, Codex, OpenClaw, Hermes, NemoClaw
+      </div>
+      <div class="layer inner">
+        <div class="label">MODELO</div>
+        <div class="content">
+          Claude / GPT / Gemini / Llama /<br>
+          open weights
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="closing">
+    El modelo propone el siguiente paso.<br>
+    El harness base lo ejecuta de forma estable.<br>
+    El harness empresarial decide <span class="insight">qué puede hacer, con qué evidencia, bajo qué límites y cuándo escalar</span>.
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">19 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s20">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Autoresearch Engineering<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s20.anexo-slide .body { top: 230px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s20 { padding-top: 0; max-width: 1300px; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; font-family: var(--sans); }
+  .s20 .intro { font-size: 20px; font-weight: 400; color: var(--ink); line-height: 1.45; margin-bottom: 22px; }
+  .s20 .section-h { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; margin-top: 14px; }
+  .s20 .primitives { margin-bottom: 4px; }
+  .s20 .primitive { display: grid; grid-template-columns: 40px 240px 1fr; column-gap: 16px; padding: 4px 0; align-items: baseline; }
+  .s20 .primitive .n { font-size: 18px; font-weight: 600; color: var(--coral); }
+  .s20 .primitive .k { font-size: 18px; font-weight: 600; color: var(--ink); }
+  .s20 .primitive .v { font-size: 18px; font-weight: 400; color: var(--ink); }
+  .s20 .results { margin-bottom: 4px; }
+  .s20 .result { margin-bottom: 14px; }
+  .s20 .result .who { font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .s20 .result .data { font-size: 18px; font-weight: 400; color: var(--ink); line-height: 1.5; margin-left: 16px; }
+  .s20 .result .stars { font-family: var(--mono); font-size: 15px; color: var(--mute); }
+  .s20 .closing { margin-top: auto; font-size: 22px; color: var(--ink); line-height: 1.45; font-weight: 500; }
+  .s20 .closing .insight { color: var(--coral); }
+</style>
+<div class="s20">
+  <div class="intro">
+    El patrón donde el agente se mejora a sí mismo:
+    propone, prueba, mide, conserva lo que mejora, descarta lo que no.
+  </div>
+  <div class="section-h">Las 3 primitivas · Karpathy, mar 2026</div>
+  <div class="primitives">
+    <div class="primitive"><span class="n">1.</span><span class="k">Archivo editable</span><span class="v">un solo archivo que el agente puede modificar</span></div>
+    <div class="primitive"><span class="n">2.</span><span class="k">Métrica escalar</span><span class="v">un solo número objetivo que decide si mejoró</span></div>
+    <div class="primitive"><span class="n">3.</span><span class="k">Ciclo con tiempo fijo</span><span class="v">cada experimento dura lo mismo</span></div>
+  </div>
+  <div class="section-h">Resultados públicos</div>
+  <div class="results">
+    <div class="result">
+      <div class="who">Karpathy (mar 2026)</div>
+      <div class="data">
+        · 700 experimentos en 2 días &nbsp;·&nbsp; 20 mejoras genuinas &nbsp;·&nbsp; +11% speedup sobre código ya optimizado
+      </div>
+    </div>
+    <div class="result">
+      <div class="who">Shopify (Tobi Lütke, CEO)</div>
+      <div class="data">
+        · Liquid (motor de tiendas Shopify) &nbsp;·&nbsp; <strong>+53% más rápido</strong> &nbsp;·&nbsp; 40+ métricas operativas en Shopify, todas mejoradas<br>
+        Open source: <span class="stars">github.com/karpathy/autoresearch · 11.7k stars</span>
+      </div>
+    </div>
+  </div>
+  <div class="closing">
+    El harness sostiene el trabajo. Autoresearch lo mejora <span class="insight">iterativamente para optimizar una métrica</span>.
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">20 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s21">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title"></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s21.slide {
+    background-color: #0F0E12 !important;
+    background-image: url('../assets/s16_autoresearch.png') !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: cover !important;
+  }
+  .s21 .topbar, .s21 .bottombar, .s21 .rule-top, .s21 .rule-bot,
+  .s21 .eyebrow-pos, .s21 .title-pos, .s21 .body, .s21 .caption {
+    display: none !important;
+  }
+</style>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">21 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s22">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Las apuestas que ya se hicieron<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s22.anexo-slide .body { top: 230px !important; bottom: 90px !important; overflow: visible !important; }
+  .s22 { padding-top: 0; }
+  .s22 .cols { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 40px; align-items: start; }
+  .s22 .divider-v { background: var(--rule); width: 1px; height: 540px; }
+  .s22 .col-h { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 6px; letter-spacing: 0.02em; }
+  .s22 .col-sub { font-size: 18px; color: var(--mute); margin-bottom: 22px; }
+  .s22 .bullet { font-size: 18px; color: var(--ink); line-height: 1.5; padding: 5px 0 5px 20px; position: relative; }
+  .s22 .bullet::before { content: "•"; position: absolute; left: 0; color: var(--ink); }
+  .s22 .indent { padding-left: 40px; color: var(--mute); }
+  .s22 .indent::before { content: ""; }
+  .s22 .apuesta { font-size: 22px; font-weight: 600; color: var(--ink); margin-top: 28px; line-height: 1.4; }
+  .s22 .apuesta .insight { color: var(--coral); }
+</style>
+<div class="s22">
+  <div class="cols">
+    <div>
+      <div class="col-h">STRIPE</div>
+      <div class="col-sub">infraestructura para comercio agéntico</div>
+      <div class="bullet">Payments Foundation Model propio</div>
+      <div class="bullet">Agentic Commerce Protocol (con OpenAI)</div>
+      <div class="bullet">Instant Checkout en ChatGPT</div>
+      <div class="bullet">Agent Toolkit + MCP para agentes</div>
+      <div class="bullet">Link wallet for agents (ejemplo oficial: OpenClaw)</div>
+      <div class="bullet">Tempo + MPP + stablecoins + streaming payments</div>
+      <div class="bullet">288 lanzamientos en Sessions 2026</div>
+      <div class="bullet">Y adentro: 1.370 ingenieros con Claude Code</div>
+      <div class="apuesta">Apuesta:<br>en cada transacción <span class="insight">habrá un agente</span>.</div>
+    </div>
+    <div class="divider-v"></div>
+    <div>
+      <div class="col-h">REVOLUT</div>
+      <div class="col-sub">el banco como interfaz conversacional</div>
+      <div class="bullet">PRAGMA: foundation model propio (con NVIDIA)</div>
+      <div class="bullet">AIR: asistente in-app (13M UK)</div>
+      <div class="bullet indent">gasto · tarjetas · inversiones · suscripciones · viajes</div>
+      <div class="bullet">Zero data retention con terceros, aprobación biométrica</div>
+      <div class="bullet">Revolut Pay + Google AP2 para comercio agéntico</div>
+      <div class="bullet">Call ID: defensa contra fraudes con deepfakes</div>
+      <div class="bullet">11 líneas de producto ya superan £100M/año</div>
+      <div class="apuesta">Apuesta:<br>el banco se vivirá <span class="insight">como una conversación</span>.</div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">22 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s23">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">El ecosistema ya se está moviendo<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s23.anexo-slide .body { top: 220px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s23 { padding-top: 0; max-width: 1400px; }
+  .s23 .entry { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .s23 .entry:last-child { border-bottom: none; }
+  .s23 .entry .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .s23 .entry .name { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
+  .s23 .entry .tag { font-family: var(--mono); font-size: 14px; color: var(--mute); font-weight: 500; }
+  .s23 .entry .desc { font-size: 18px; color: var(--ink); line-height: 1.45; }
+  .s23 .entry .repo { font-family: var(--mono); font-size: 14px; color: var(--mute); margin-top: 4px; }
+  .s23 .entry.datastrat { border-left: 2px solid var(--coral); padding-left: 18px; }
+  .s23 .entry.datastrat .name { color: var(--coral); }
+</style>
+<div class="s23">
+  <div class="entry">
+    <div class="head">
+      <span class="name">bancolombia-cli</span>
+      <span class="tag">open source · comunidad</span>
+    </div>
+    <div class="desc">Para que un agente IA pueda consultar y operar cuentas de Bancolombia desde una conversación.</div>
+    <div class="repo">github.com/crafter-station/bancolombia-cli</div>
+  </div>
+  <div class="entry">
+    <div class="head">
+      <span class="name">cfo-agent</span>
+      <span class="tag">open source · comunidad</span>
+    </div>
+    <div class="desc">Para que un agente reemplace la conciliación, detección de anomalías y reportes financieros de un CFO de PyME.</div>
+    <div class="repo">github.com/mutonby/cfo-agent</div>
+  </div>
+  <div class="entry datastrat">
+    <div class="head">
+      <span class="name">datastrat</span>
+      <span class="tag">propio</span>
+    </div>
+    <div class="desc">Capa MCP para que un agente pueda ir del catálogo al cobro vía Wompi sin tocar la app (utiliza links de pago).</div>
+  </div>
+  <div class="entry">
+    <div class="head">
+      <span class="name">Mercado Pago</span>
+      <span class="tag">oficial</span>
+    </div>
+    <div class="desc">Publicó MCP server oficial y marketplace de Claude Code para integraciones de pagos.</div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">23 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s24">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title">Oportunidades para [redacted]<span class="dot">.</span></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s24.anexo-slide .body { top: 220px !important; bottom: 90px !important; overflow: visible !important; }
+  .body > .s24 { padding-top: 0; max-width: 1400px; }
+  .s24 .section-label { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--mute); letter-spacing: 0.06em; margin: 12px 0 14px 0; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+  .s24 .item { display: grid; grid-template-columns: 60px 1fr; gap: 14px; padding: 10px 0; align-items: start; }
+  .s24 .item .n { font-family: var(--mono); font-size: 24px; font-weight: 700; color: var(--coral); line-height: 1.2; }
+  .s24 .item .h { font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .s24 .item .d { font-size: 18px; color: var(--mute); line-height: 1.45; }
+  .s24 .latam .item { margin-bottom: 12px; }
+</style>
+<div class="s24">
+  <div class="section-label">TRES PALANCAS</div>
+  <div class="item">
+    <span class="n">1.</span>
+    <div>
+      <div class="h">Codificación asistida por agentes</div>
+      <div class="d">Velocidad y escalabilidad de ingeniería.</div>
+    </div>
+  </div>
+  <div class="item">
+    <span class="n">2.</span>
+    <div>
+      <div class="h">Harness Engineering empresarial</div>
+      <div class="d">Agentes profundos para tareas de horas: onboarding de NIT, cobranza, manejo de excepciones.</div>
+    </div>
+  </div>
+  <div class="item">
+    <span class="n">3.</span>
+    <div>
+      <div class="h">Autoresearch Engineering</div>
+      <div class="d">Bucles de auto-mejora sobre 27M usuarios y 550M transacciones/mes: scoring, fraude, pricing, retención.</div>
+    </div>
+  </div>
+  <div class="section-label">CAMBIAR EL JUEGO EN LATAM</div>
+  <div class="latam">
+    <div class="item">
+      <span class="n">A.</span>
+      <div>
+        <div class="h">Capa de pagos para agentes en LATAM</div>
+      </div>
+    </div>
+    <div class="item">
+      <span class="n">B.</span>
+      <div>
+        <div class="h">Banco como interfaz conversacional en español</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">24 / 25</span>
+  </div>
+</section>
+
+<section class="slide anexo-slide s25">
+  <div class="topbar">
+    <span class="coord">Flisol · Cusol · 2026</span>
+    <span>2026-05</span>
+  </div>
+  <div class="rule-top"></div>
+
+  <div class="eyebrow-pos eyebrow"></div>
+  <div class="title-pos">
+    <h1 class="action-title"></h1>
+    <div class="subtitle" style="margin-top:14px"></div>
+  </div>
+
+  <div class="body">
+    <style>
+  .s25.anexo-slide .body { top: 140px !important; bottom: 100px !important; overflow: visible !important; display: flex !important; flex-direction: column; justify-content: center; }
+  .s25 { padding-top: 0; }
+  .s25 .brand { font-size: 180px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; line-height: 0.95; }
+  .s25 .brand .dot { color: var(--coral); }
+  .s25 .p1 { font-size: 28px; font-weight: 500; color: var(--ink); margin-top: 32px; line-height: 1.3; }
+  .s25 .p2 { font-size: 18px; font-weight: 400; color: var(--mute); margin-top: 24px; line-height: 1.4; }
+  .s25 .contact { font-family: var(--mono); font-size: 14px; color: var(--mute); margin-top: 36px; }
+</style>
+<div class="s25">
+  <div class="brand">datastrat<span class="dot">.</span></div>
+  <div class="p1">
+    Creamos sistemas de trabajo con agentes.<br>
+    Diseñados con precisión.
+  </div>
+  <div class="p2">
+    Investigación aplicada<br>
+    para empresas que se toman en serio<br>
+    la forma de decidir.
+  </div>
+  <div class="contact">a@datastrat.co · datastrat.co</div>
+</div>
+
+  </div>
+
+  <div class="caption"></div>
+
+  <div class="rule-bot"></div>
+  <div class="bottombar">
+    <span>Flisol | datastrat</span>
+    <span class="num">25 / 25</span>
+  </div>
+</section>
+</div>
+</body>
+</html>
