@@ -97,7 +97,7 @@ Patrón A/B/C de casos (reenumerado tras reorden para CUSOL):
 - B (restaurante WhatsApp): agente reactivo conversacional
 - C (cuenta empresarial NIT): agente de onboarding asistido — ángulo emprendimiento
 
-Generalizado para cualquier industria que oferta en contratación pública del estado colombiano. El skill base que implementa este patrón (`Skill_Hartmann`) es industria-agnóstico en código; solo cambian los archivos Markdown de perfil/rúbrica/keywords por sector.
+Generalizado para cualquier industria que oferta en contratación pública del estado colombiano. El patrón es industria-agnóstico en código; solo cambian los archivos Markdown de perfil/rúbrica/keywords por sector.
 
 Cifras verificadas vía API SODA (dataset `p6dx-8zbt` en datos.gov.co, Colombia Compra Eficiente):
 - 2024: 1.598.413 procesos únicos → ~4.379/día
