@@ -23,17 +23,6 @@ bottom_left: "Flisol | datastrat"
 
 Los agentes dejaron de ser "chat más inteligente": son sistemas que operan sobre fuentes de verdad verificables, dirigidos por un harness y, en el límite, capaces de mejorarse a sí mismos mediante autoresearch. La charla mapea cómo evolucionó la ingeniería de IA en cinco fases (data → model → context → harness → autoresearch), muestra tres casos concretos (licitaciones, conversación, onboarding), y deja al público con un mapa mental y rutas para empezar.
 
-## Origen
-
-Derivado del deck [redacted] original (`[redacted]`). Cambios principales aplicados en esta versión:
-
-- Headers globales: `Flisol · Cusol · 2026` / `2026-05` / `Flisol | datastrat`.
-- Nueva **S04_caso_a.md** (Caso A · Licitaciones públicas SECOP II, multi-agente: scout + deep agent · industria-agnóstico). Reordenado al inicio del bloque de casos para liderar con la pieza más fuerte para CUSOL; reenumerado de C → A para que la letra coincida con la posición.
-- Nueva **S20_timeline.md** (timeline · 5 fases con ecuaciones canónicas + nomenclatura). Movida al final del recorrido conceptual para funcionar como síntesis tras el deep dive de autoresearch (no como apertura) — pedagógicamente mejor para audiencia CUSOL.
-- Nueva **S21_historia.md** (tabla histórica · cuándo se consolidó cada fase y quién la acuñó, con referencias APA verificadas). Compañera de S20, también movida al final.
-- **S09_skin_in_the_game.md** (matriz 2×2): ejemplos del cuadrante naranja reescritos a casos generales (código, refactoring, bugs, análisis, investigación).
-- Resto del contenido mantenido idéntico al deck [redacted]. Decisiones de excluir/adaptar slides fintech quedan pendientes.
-
 ## Orden canónico de slides
 
 | SXX | tipo          | slide                                                |
@@ -78,6 +67,4 @@ Derivado del deck [redacted] original (`[redacted]`). Cambios principales aplica
 
 ## Pendientes para próxima vuelta
 
-- S22 (Stripe/Revolut), S23 (ecosistema LATAM fintech), S24 (oportunidades [redacted]) **eliminados** — eran artefactos del deck [redacted], irrelevantes para CUSOL. Reemplazados por dos slides nuevos: S22_oportunidades_empezar (palancas 1-2: harnesses abiertos + data pública) y S23_oportunidades_posicionarte (palancas 3-4: harness engineering + deep agents para emprender).
-- Decidir si excluir S05 (caso B · restaurante WhatsApp, cifras en COP) y S15 (cita Jensen Huang) — pendiente. S07 (caso C · cuenta empresarial NIT) se mantiene, reframed como ángulo de emprendimiento + deep agents.
 - Cambiar header derecho a fecha exacta del evento si aplica (hoy `2026-05`, podría afinarse a `2026-05-15`).

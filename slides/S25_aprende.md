@@ -81,7 +81,7 @@ content:
 
 # Aprende · oportunidades 1/2
 
-Reemplaza S22-S23-S24 originales (apuestas/ecosistema/oportunidades [redacted]). Primera slide del cierre orientada a CUSOL.
+Primera slide del cierre orientada a CUSOL.
 
 Palanca 1 · harness engineering como skill. Foundational papers nombrados:
 - ReAct (Yao et al., 2022): https://arxiv.org/abs/2210.03629 — fundacional para el patrón razonar-actuar-observar.
