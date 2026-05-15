@@ -45,7 +45,7 @@ content:
       <div class="row">
         <div class="fase">model<span class="marker-inline">2</span></div>
         <div class="when"><strong>2017</strong><br>Transformers · Vaswani et al.</div>
-        <div class="idea">entrenar pesos óptimos sobre ese dataset</div>
+        <div class="idea">entrenar pesos con <em>atención</em> · el modelo aprende qué importa de cada token</div>
       </div>
       <div class="row">
         <div class="fase">context<span class="marker-inline">3</span></div>

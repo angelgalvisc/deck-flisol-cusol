@@ -2071,7 +2071,7 @@ resource: payment_intent/     <span class="c"># objeto específico que contiene 
       <div class="nomen-body">
         <span class="phase">data</span> <strong>D</strong> dataset · <strong>x, y</strong> entrada / salida · <strong>P<sub>world</sub></strong> distribución del mundo<br>
         <span class="phase">model</span> <strong>θ</strong> pesos del modelo · <strong>θ*</strong> pesos óptimos tras entrenamiento · <strong>E<sub>D</sub>[·]</strong> esperanza sobre D · <strong>L</strong> función de pérdida · <strong>f<sub>θ</sub></strong> modelo<br>
-        <span class="phase">context</span> <strong>(·)</strong> argumento sobre el que se distribuye (placeholder) · <strong>P<sub>θ*</sub></strong> distribución del modelo entrenado · <strong>c</strong> contexto · <strong>C(·)</strong> función de curación · <strong>q</strong> query · <strong>M<sub>q</sub></strong> memoria · <strong>T</strong> tools · <strong>E</strong> evidencia<br>
+        <span class="phase">context</span> <strong>(·)</strong> marca de argumento (notación funcional) · <strong>P<sub>θ*</sub></strong> distribución del modelo entrenado · <strong>c</strong> contexto · <strong>C(·)</strong> función de curación · <strong>q</strong> query · <strong>M<sub>q</sub></strong> memoria · <strong>T</strong> tools · <strong>E</strong> evidencia<br>
         <span class="phase">harness</span> <strong>a<sub>t</sub></strong> acción · <strong>π<sub>θ*</sub></strong> política del modelo entrenado · <strong>s<sub>t</sub></strong> estado · <strong>c<sub>t</sub></strong> contexto en t · <strong>o<sub>t</sub></strong> observación · <strong>τ</strong> tool · <strong>G</strong> validación (guardrail) · <strong>t</strong> paso<br>
         <span class="phase">autoresearch</span> <strong>Δ</strong> cambio propuesto · <strong>z</strong> configuración editable · <strong>A</strong> arena (spec + espacio editable + métrica + presupuesto + regla) · <strong>T<sub>Δ</sub>(·)</strong> operación que aplica Δ a z · <strong>m = M(z)</strong> valor de la métrica · <strong>M</strong> métrica
       </div>
@@ -2139,7 +2139,7 @@ resource: payment_intent/     <span class="c"># objeto específico que contiene 
   <div class="row">
     <div class="fase">model<span class="marker-inline">2</span></div>
     <div class="when"><strong>2017</strong><br>Transformers · Vaswani et al.</div>
-    <div class="idea">entrenar pesos óptimos sobre ese dataset</div>
+    <div class="idea">entrenar pesos con <em>atención</em> · el modelo aprende qué importa de cada token</div>
   </div>
   <div class="row">
     <div class="fase">context<span class="marker-inline">3</span></div>
