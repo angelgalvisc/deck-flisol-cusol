@@ -8,7 +8,7 @@ status: draft
 evidences: []
 content:
   eyebrow: ""
-  subtitle: "Tres temas que si esperas a leer el libro en 2030, llegas tarde."
+  subtitle: "Tres temas. Si espera a leerlos en libro en 2030, ¡va a llegar tarde!"
   body_html: |
     <style>
       .s02.slide { background: var(--ink) !important; color: var(--bg) !important; }
