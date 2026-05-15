@@ -35,10 +35,10 @@ Estudiantes y profesionales que quieren entender el campo de los agentes **antes
 
 ## Contenido del repo
 
-- `slides/` — 28 slides en Markdown + HTML embebido
+- `slides/` — 32 slides en Markdown + HTML embebido
 - `assets/` — imágenes e ilustraciones
-- `build/` — HTML y PDF generados (deck.pdf es la última versión)
-- `manual.md` — guía editorial del deck
+- `build/` — HTML y PDF generados
+- `manual.md` — índice de slides
 
 ## Autor
 
