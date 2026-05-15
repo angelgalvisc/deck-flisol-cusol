@@ -2,12 +2,12 @@
 slide_id: S06
 slide_type: anexo
 section: casos
-action_title: "Un prompt en lenguaje natural."
+action_title: "PRUEBA CON EL PANTERA CONSTRUCTORES S.A.S."
 position: 6
 status: draft
 evidences: []
 content:
-  eyebrow: "prueba con EL PANTERA CONSTRUCTORES S.A.S."
+  eyebrow: ""
   subtitle: ""
   body_html: |
     <style>
