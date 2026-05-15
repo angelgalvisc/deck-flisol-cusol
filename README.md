@@ -14,7 +14,7 @@ Tres temas que aún no tienen libro. Un mapa de cómo evolucionó la ingeniería
 
 **Una tesis** — los agentes dejaron de ser "chat más inteligente". Son sistemas que operan sobre fuentes de verdad verificables, dirigidos por un harness y, en el límite, capaces de mejorarse a sí mismos mediante autoresearch.
 
-**Un mapa de 5 fases** que cuenta cómo evolucionó la ingeniería de IA en 20 años — `data → model → context → harness → autoresearch` — con sus ecuaciones canónicas y referencias APA verificadas.
+**Un mapa de 5 fases** que cuenta cómo evolucionó la ingeniería de IA en 20 años — `data → model → context → harness → autoresearch` — con sus ecuaciones canónicas.
 
 **Una distinción** entre agente normal (trabaja por solicitud, loop corto, entrega una respuesta) y deep agent (trabaja por misión, plan + sub-agentes + workspace persistente, entrega un artefacto verificable).
 
