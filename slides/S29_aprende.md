@@ -46,7 +46,7 @@ content:
           <div class="sub">En el modelo no tenemos ventajas competitivas. Pero en el harness tenemos cómo construir — y la disciplina apenas se está nombrando.</div>
           <div class="triplet">
             <div class="lab">por qué ahora</div>
-            <div class="val">Dos referencias fundacionales: <a class="paper" href="https://www.anthropic.com/research/building-effective-agents">Building Effective Agents</a> (Anthropic, 2024) y <a class="paper" href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">Effective harnesses for long-running agents</a> (Anthropic, 2026). No hay décadas de teoría que arrastrar.</div>
+            <div class="val">Dos referencias fundacionales: <a class="paper" href="https://www.anthropic.com/research/building-effective-agents">Building Effective Agents</a> (Anthropic, 2024) y <a class="paper" href="https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents">Effective harnesses for long-running agents</a> (Anthropic, 2026). El campo se está escribiendo ahora — estos son los fundacionales.</div>
             <div class="lab">cuánto cuesta</div>
             <div class="val">6-8 semanas intensivas. Leer ambos papers, ver tutoriales, escribir tu primer agente, modificar un harness abierto. Ventana rara: hoy un estudiante puede saber más que su profesor.</div>
           </div>
