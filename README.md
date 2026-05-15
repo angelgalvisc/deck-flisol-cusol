@@ -20,7 +20,7 @@ Tres temas que aún no tienen libro. Un mapa de cómo evolucionó la ingeniería
 
 **Una disciplina nueva: Harness Engineering** — qué es, por qué ninguna universidad la enseña aún, y por qué la ventaja competitiva del 2026-2030 vive ahí, no en el modelo.
 
-**Un manifesto** — el software libre nunca fue una licencia, fue la afirmación de que cualquiera puede construir. Los agentes son la herramienta más poderosa que la inteligencia natural ha diseñado.
+**Un manifesto** — el software hoy puede ser más libre. Cualquiera con esfuerzo y energía puede construir. Los agentes son la herramienta más poderosa que la inteligencia natural ha diseñado.
 
 ## Referencias clave
 
