@@ -2,7 +2,9 @@
 
 Charla en **Flisol · Cusol UIS·UTS** · Bucaramanga, mayo 2026.
 
-### → [Descargar PDF](build/deck.pdf)
+### → [⬇ Descargar PDF (22 MB · alta resolución)](https://github.com/angelgalvisc/deck-flisol-cusol/releases/download/v1.0/deck.pdf)
+
+*(Click directo · sin pasar por preview de GitHub)*
 
 Si te sirvió, dale ⭐ al repo.
 
