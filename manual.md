@@ -5,7 +5,7 @@ visibility: public
 client: cusol
 project: deck-flisol
 presentation_name: Deep Agents · charla Flisol / Cusol UIS·UTS
-total_slides: 29
+total_slides: 28
 aesthetic: datastrat/v1
 delivery_mode: quick_draft
 created: 2026-05-13
@@ -66,7 +66,6 @@ Derivado del deck [redacted] original (`[redacted]`). Cambios principales aplica
 | S26 | anexo         | [[slides/S26_construye.md]]                          |
 | S27 | manifesto     | [[slides/S27_manifesto.md]]                          |
 | S28 | cierre        | [[slides/S28_cierre.md]]                             |
-| S29 | qr            | [[slides/S29_qr.md]]                                 |
 
 ## Decisiones globales
 

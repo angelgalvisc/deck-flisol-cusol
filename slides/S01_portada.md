@@ -26,10 +26,12 @@ content:
       .s01-cover .display .dot { color: var(--coral); }
       .s01-cover .sub { font-size: 36px; font-weight: 500; color: var(--ink); margin-top: 40px; }
       .s01-cover .rule { width: 200px; height: 1px; background: var(--coral); margin-top: 24px; }
-      .s01-bio { margin-top: 24px; }
+      .s01-footer { display: flex; align-items: flex-end; justify-content: space-between; margin-top: 24px; gap: 32px; }
       .s01-bio .name { font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.2; }
       .s01-bio .role { font-size: 17px; font-weight: 400; color: var(--ink); margin-bottom: 10px; line-height: 1.2; }
       .s01-bio .email { font-family: var(--mono); font-size: 14px; color: var(--coral); }
+      .s01-qr { width: 140px; height: 140px; flex-shrink: 0; }
+      .s01-qr img { width: 100%; height: 100%; display: block; }
     </style>
     <div class="s01-center">
       <div class="s01-cover">
@@ -38,10 +40,13 @@ content:
         <div class="rule"></div>
       </div>
     </div>
-    <div class="s01-bio">
-      <div class="name">Angel Galvis</div>
-      <div class="role">Founder and Managing Partner at Datastrat.</div>
-      <div class="email">a@datastrat.co</div>
+    <div class="s01-footer">
+      <div class="s01-bio">
+        <div class="name">Angel Galvis</div>
+        <div class="role">Founder and Managing Partner at Datastrat.</div>
+        <div class="email">a@datastrat.co</div>
+      </div>
+      <div class="s01-qr"><img src="../assets/s29_qr_pdf.png" alt="QR al PDF" /></div>
     </div>
   caption: ""
 ---

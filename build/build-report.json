@@ -1,7 +1,7 @@
 {
   "project": "/Users/agc/Documents/Deck_Flisol",
   "skill_root": "/Users/agc/skills/Skill_Slides_Datastrat",
-  "total_slides": 29,
+  "total_slides": 28,
   "slides": [
     {
       "id": "S01_portada",
@@ -226,19 +226,11 @@
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
-    },
-    {
-      "id": "S29_qr",
-      "file": "S29_qr.md",
-      "position": 29,
-      "slide_type": "anexo",
-      "canonical_type": "anexo",
-      "missing_placeholders": []
     }
   ],
   "errors": [],
   "type_usage": {
-    "anexo": 29
+    "anexo": 28
   },
   "deliverable_html": "cusol_deck-flisol_deep-agents-charla-flisol-cusol-uisuts_20260514.html"
 }

@@ -11,13 +11,15 @@ content:
   subtitle: ""
   body_html: |
     <style>
-      .s28.anexo-slide .body { top: 140px !important; bottom: 100px !important; overflow: visible !important; display: flex !important; flex-direction: column; justify-content: center; }
+      .s28.anexo-slide .body { top: 140px !important; bottom: 100px !important; overflow: visible !important; display: flex !important; flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; }
       .s28 { padding-top: 0; }
       .s28 .brand { font-size: 180px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; line-height: 0.95; }
       .s28 .brand .dot { color: var(--coral); }
       .s28 .p1 { font-size: 28px; font-weight: 500; color: var(--ink); margin-top: 32px; line-height: 1.3; }
       .s28 .p2 { font-size: 18px; font-weight: 400; color: var(--mute); margin-top: 24px; line-height: 1.4; }
       .s28 .contact { font-family: var(--mono); font-size: 14px; color: var(--mute); margin-top: 36px; }
+      .s28-qr { width: 200px; height: 200px; flex-shrink: 0; align-self: flex-end; }
+      .s28-qr img { width: 100%; height: 100%; display: block; }
     </style>
     <div class="s28">
       <div class="brand">datastrat<span class="dot">.</span></div>
@@ -32,6 +34,7 @@ content:
       </div>
       <div class="contact">a@datastrat.co · datastrat.co</div>
     </div>
+    <div class="s28-qr"><img src="../assets/s29_qr_pdf.png" alt="QR al PDF" /></div>
   caption: ""
 ---
 
