@@ -36,11 +36,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Manifesto
-
-Slide manifesto entre S26 (Construye) y S28 (cierre datastrat). Fondo matte black para crear pause filosófico — contrasta con el resto del deck en cream.
-
-Texto: dos estancias. Primera reafirma el espíritu FLISoL (software libre como "cualquiera puede construir"). Segunda culmina con la línea más fuerte — los agentes como creación de la "inteligencia natural" (el wink: nosotros, los humanos).
-
-Coral solo en "la inteligencia natural" — único acento de la slide, marca el giro poético que cierra el arco completo del deck.

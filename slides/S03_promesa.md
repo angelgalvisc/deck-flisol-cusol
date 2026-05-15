@@ -21,7 +21,3 @@ content:
     </div>
   caption: ""
 ---
-
-# La promesa universal
-
-Texto fiel a `propuesta_visual.md` slide 2.

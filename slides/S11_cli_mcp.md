@@ -50,7 +50,3 @@ content:
     </div>
   caption: ""
 ---
-
-# CLI y MCP
-
-Fiel a `propuesta_visual.md` slide 5.

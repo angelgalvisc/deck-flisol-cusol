@@ -46,7 +46,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Asimetría de la verificación
-
-Fiel a `propuesta_visual.md` slide 7.

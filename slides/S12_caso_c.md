@@ -91,7 +91,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Caso C · cuenta de ahorros empresarial
-
-Proceso fragmentado vs operación sostenida por deep agent.

@@ -25,7 +25,3 @@ content:
     </style>
   caption: ""
 ---
-
-# Harness · visual
-
-Section break full-bleed sobre fondo matte black. La imagen ya trae título, subtítulo y kicker propios — sin chrome del deck.

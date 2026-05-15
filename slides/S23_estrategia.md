@@ -63,7 +63,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Estrategia · 3 capas
-
-Fiel a `propuesta_visual.md` slide 15.

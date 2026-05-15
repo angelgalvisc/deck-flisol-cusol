@@ -59,7 +59,3 @@ content:
     <div class="s32-qr"><img src="../assets/s29_qr_pdf.png" alt="QR al PDF" /></div>
   caption: ""
 ---
-
-# datastrat (cierre)
-
-Fiel a `propuesta_visual.md` slide 20.

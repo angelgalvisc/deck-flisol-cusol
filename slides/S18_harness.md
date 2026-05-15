@@ -61,7 +61,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Qué es un harness
-
-Fiel a `propuesta_visual.md` slide 12.

@@ -28,7 +28,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Caso A · Top 12
-
-Tabla priorizada por urgencia × valor. Cada fila lleva entidad, región, línea de negocio, valor estimado, estado de cierre y link directo al proceso en SECOP II.

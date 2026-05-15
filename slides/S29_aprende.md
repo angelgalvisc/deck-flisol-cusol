@@ -78,20 +78,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Aprende · oportunidades 1/2
-
-Primera slide del cierre orientada a CUSOL.
-
-Palanca 1 · harness engineering como skill. Foundational papers nombrados:
-- ReAct (Yao et al., 2022): https://arxiv.org/abs/2210.03629 — fundacional para el patrón razonar-actuar-observar.
-- Building Effective Agents (Anthropic, 2024): https://www.anthropic.com/research/building-effective-agents — guía canónica de patrones de agentes en producción.
-
-Palanca 2 · harnesses open source verificados (mayo 2026):
-- OpenClaw (lanzado 30-ene-2026, 500k LoC)
-- NanoClaw (containers Linux para aislamiento)
-- PicoClaw (Sipeed, Go, <10MB RAM, hardware $10)
-- NullClaw / ZeroClaw / IronClaw (variantes minimalistas)
-- Hermes (Nous Research, feb-2026, MIT)
-
-El coral va en el número "1" — único uso de coral en el slide, marcando la palanca más importante.

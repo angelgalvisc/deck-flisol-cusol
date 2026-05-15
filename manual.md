@@ -60,15 +60,3 @@ Los agentes dejaron de ser "chat más inteligente": son sistemas que operan sobr
 | S31 | manifesto     | [[slides/S31_manifesto.md]]                          |
 | S32 | cierre        | [[slides/S32_cierre.md]]                             |
 
-## Decisiones globales
-
-- Modo `quick_draft`: sin trazabilidad rigurosa de evidencias (`E###`).
-- Paleta datastrat/v1 oficial: `--ink`, `--ink-soft`, `--mute`, `--soft`, `--rule`, `--bg`, `--coral`.
-- Marca `datastrat` siempre en minúscula.
-- Cifras siempre en mono con unidad explícita.
-- Coral aparece **una sola vez por slide** (el insight).
-- Slides asumen jerarquía Minto: tesis arriba, soporte medio, evidencia abajo, cierre.
-
-## Pendientes para próxima vuelta
-
-- Cambiar header derecho a fecha exacta del evento si aplica (hoy `2026-05`, podría afinarse a `2026-05-15`).

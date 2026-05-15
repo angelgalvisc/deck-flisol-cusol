@@ -25,7 +25,3 @@ content:
     </style>
   caption: ""
 ---
-
-# Harness · propietarios y open
-
-Section break full-bleed sobre fondo negro. Cuatro logos: Claude Code y Codex (propietarios) · Hermes-Agent y OpenClaw (open source). Sin chrome del deck — la imagen ya cuenta la historia.

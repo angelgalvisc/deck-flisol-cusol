@@ -37,7 +37,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Jensen Huang
-
-Fiel a `propuesta_visual.md` slide 13.

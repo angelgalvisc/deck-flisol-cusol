@@ -22,7 +22,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Timeline · visual
-
-Visual previa a S21 (timeline analítico). Mismo eyebrow/título/subtítulo que S21 para crear continuidad. La imagen usa `mix-blend-mode: multiply` para que su fondo crema se funda con el fondo del deck — sin caja visible.

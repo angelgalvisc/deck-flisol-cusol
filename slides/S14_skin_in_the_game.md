@@ -78,7 +78,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Skin in the game
-
-Fiel a `propuesta_visual.md` slide 8.

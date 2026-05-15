@@ -77,7 +77,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Cambio de topología
-
-Fiel a `propuesta_visual.md` slide 3. Dos diagramas con cajas y flechas.

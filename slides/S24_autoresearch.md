@@ -61,7 +61,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Autoresearch Engineering
-
-Fiel a `propuesta_visual.md` slide 16.

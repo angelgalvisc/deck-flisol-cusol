@@ -28,7 +28,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Caso A · KPIs
-
-7.564 procesos → 190 accionables → $1,18 bill. valor agregado → $342 mil M en zona de cobertura óptima.

@@ -57,13 +57,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Qué es un agente
-
-Taxonomía visual de las cuatro formas de IA en el Entorno 02. Cada celda lleva una ilustración:
-- Chatbot: robot con burbujas de diálogo
-- Copilot: robot sugiriendo a humano que opera el panel
-- Workflow: robot ejecutando pasos predefinidos en pizarra
-- AGENTE: robot con tools/skills/memory/security alrededor (coral · diferenciador clave)
-
-Coral solo en la celda AGENTE — única llamada visual. Cita de Anthropic abajo cierra la definición canónica.

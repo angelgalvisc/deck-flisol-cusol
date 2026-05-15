@@ -72,7 +72,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Caso B · restaurante
-
-Fiel a `propuesta_visual.md` slide 4.

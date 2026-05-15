@@ -74,7 +74,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Portada
-
-Texto fiel a `propuesta_visual.md` slide 1.

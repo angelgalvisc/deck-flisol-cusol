@@ -42,7 +42,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Agenda · libros que aún no existen
-
-Slide 2 con toque de humor. Tres portadas O'RLY (parodia O'Reilly) representando los tres temas de la charla. Wink auto-referencial: una de las portadas lleva mi nombre junto a Karpathy y Trivedy — el chiste es que el campo está tan nuevo que los libros aún no existen, pero podrían escribirse esta misma década.

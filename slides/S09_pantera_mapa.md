@@ -28,7 +28,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Caso A · Mapa + recomendación
-
-Concentración por departamento, mix por línea de negocio, señales detectadas (cierres ≤3 días, presupuesto > $3.000M, cobertura óptima) y recomendación de acción lista para decisión humana.

@@ -93,17 +93,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Construye · oportunidades 2/2
-
-Segunda slide del cierre. Las palancas que requieren construir algo concreto: dataset público + emprendimiento con deep agents.
-
-Palanca 3 · data pública colombiana. Orden de relevancia: datos.gov.co primero (es el portal central que indexa todo), DANE segundo (estadística oficial + microdatos), SECOP II tercero (referencia explícita al Caso A del deck).
-
-Palanca 4 · diferencia conceptual agente normal vs deep agent:
-- Agente normal = reactivo, horizonte segundos a minutos
-- Deep agent = sostiene operación de horas, planifica multi-paso, recuerda, escala excepciones, entrega artefacto
-
-Pie coral cierra el arco completo del deck: Linux/OSS/agentes como continuum, no silos. Único uso de coral en este slide.
-
-Conecta con S11 (Horizonte de tarea) y S12 (Deep agents) del deck.

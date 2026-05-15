@@ -81,12 +81,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Timeline · evolución de la ingeniería de IA
-
-Slide nuevo, exclusiva del deck Flisol.
-
-Mapa mental: data → model → context → harness → autoresearch.
-Cada fase incorporó las variables de la anterior y abrió una nueva. Las ecuaciones son las canónicas del manifiesto Agentic_Engineering (forma compacta para presentación).
-
-Fuente conceptual: manifiesto Agentic_Engineering (8 disciplinas; aquí presentamos las 5 primeras, que cubren el arco de la charla).

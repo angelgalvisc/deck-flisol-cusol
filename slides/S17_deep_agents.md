@@ -43,7 +43,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Deep agents
-
-Fiel a `propuesta_visual.md` slide 11.

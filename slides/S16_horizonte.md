@@ -100,7 +100,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Horizonte de tarea
-
-Versión data-viz purist con líneas de referencia, anotación de doubling time y modelos pre-frontera muted.

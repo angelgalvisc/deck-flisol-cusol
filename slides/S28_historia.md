@@ -76,19 +76,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Cuándo nació cada fase
-
-Slide nuevo, exclusiva del deck Flisol.
-
-Tabla compañera del timeline (S20). Mientras S20 muestra la estructura formal (ecuaciones), esta (S21) muestra el arco histórico — cuándo se acuñó cada disciplina, quién y dónde está la referencia primaria. Ambas slides funcionan como síntesis al final del deck (tras autoresearch en S18-S19), antes del bloque de cierre.
-
-Referencias verificadas (URLs 200 OK):
-
-1. **data** — Ghemawat, S., Gobioff, H., & Leung, S.-T. (2003). *The Google file system*. SOSP '03. https://research.google/pubs/the-google-file-system/ + Dean, J., & Ghemawat, S. (2004). *MapReduce: Simplified data processing on large clusters*. OSDI '04. https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/
-2. **model** — Vaswani, A., et al. (2017). *Attention is all you need*. NeurIPS 2017. https://arxiv.org/abs/1706.03762
-3. **context** — Rajasekaran, P., Dixon, E., Ryan, C., & Hadfield, J. (2025, September 29). *Effective context engineering for AI agents*. Anthropic Engineering. https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
-4. **harness** — Trivedy, V. (2026, March 10). *The anatomy of an agent harness*. LangChain Blog. https://www.langchain.com/blog/the-anatomy-of-an-agent-harness
-5. **autoresearch** — Karpathy, A. (2026). *autoresearch: AI agents running research on single-GPU nanochat training automatically* [Software repository]. GitHub. https://github.com/karpathy/autoresearch
-
-**Nota sobre harness:** atribución primaria a Vivek Trivedy (LangChain, marzo 2026) por *The Anatomy of an Agent Harness*, donde formaliza la fórmula "Agent = Model + Harness". Mitchell Hashimoto también usó el término en feb 2026 (*My AI adoption journey*) pero Trivedy es la referencia más sustantiva y disciplinaria.

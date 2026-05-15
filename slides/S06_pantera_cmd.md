@@ -28,7 +28,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Caso A · prompt
-
-Demo en vivo: un prompt natural a Claude Code dispara leer SKILL.md → ejecutar Scout en modo reglas → abrir HTML → resumir top 5. Sin código del usuario.

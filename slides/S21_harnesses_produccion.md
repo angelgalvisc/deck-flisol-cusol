@@ -61,7 +61,3 @@ content:
     </div>
   caption: ""
 ---
-
-# Harnesses en producción
-
-Fiel a `propuesta_visual.md` slide 14.
