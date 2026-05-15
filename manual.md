@@ -5,7 +5,7 @@ visibility: public
 client: cusol
 project: deck-flisol
 presentation_name: Deep Agents · charla Flisol / Cusol UIS·UTS
-total_slides: 28
+total_slides: 32
 aesthetic: datastrat/v1
 delivery_mode: quick_draft
 created: 2026-05-13
@@ -32,29 +32,33 @@ Los agentes dejaron de ser "chat más inteligente": son sistemas que operan sobr
 | S03 | tesis         | [[slides/S03_promesa.md]]                            |
 | S04 | comparativa   | [[slides/S04_topologia.md]]                          |
 | S05 | tesis         | [[slides/S05_caso_a.md]]                             |
-| S06 | tesis         | [[slides/S06_caso_b.md]]                             |
-| S07 | tabla         | [[slides/S07_cli_mcp.md]]                            |
-| S08 | tesis         | [[slides/S08_caso_c.md]]                             |
-| S09 | cuantitativo  | [[slides/S09_asimetria.md]]                          |
-| S10 | 2x2           | [[slides/S10_skin_in_the_game.md]]                   |
-| S11 | cita          | [[slides/S11_agente.md]]                             |
-| S12 | cuantitativo  | [[slides/S12_horizonte.md]]                          |
-| S13 | stepper       | [[slides/S13_deep_agents.md]]                        |
-| S14 | cita          | [[slides/S14_harness.md]]                            |
-| S15 | anexo         | [[slides/S15_harness_visual.md]]                     |
-| S16 | cita          | [[slides/S16_jensen.md]]                             |
-| S17 | comparativa   | [[slides/S17_harnesses_produccion.md]]               |
-| S18 | visual        | [[slides/S18_harness_logos.md]]                      |
-| S19 | anexo         | [[slides/S19_estrategia.md]]                         |
-| S20 | tabla         | [[slides/S20_autoresearch.md]]                       |
-| S21 | anexo         | [[slides/S21_autoresearch_visual.md]]                |
-| S22 | visual        | [[slides/S22_timeline_visual.md]]                    |
-| S23 | timeline      | [[slides/S23_timeline.md]]                           |
-| S24 | tabla         | [[slides/S24_historia.md]]                           |
-| S25 | anexo         | [[slides/S25_aprende.md]]                            |
-| S26 | anexo         | [[slides/S26_construye.md]]                          |
-| S27 | manifesto     | [[slides/S27_manifesto.md]]                          |
-| S28 | cierre        | [[slides/S28_cierre.md]]                             |
+| S06 | demo          | [[slides/S06_pantera_cmd.md]]                        |
+| S07 | demo          | [[slides/S07_pantera_kpis.md]]                       |
+| S08 | demo          | [[slides/S08_pantera_top12.md]]                      |
+| S09 | demo          | [[slides/S09_pantera_mapa.md]]                       |
+| S10 | tesis         | [[slides/S10_caso_b.md]]                             |
+| S11 | tabla         | [[slides/S11_cli_mcp.md]]                            |
+| S12 | tesis         | [[slides/S12_caso_c.md]]                             |
+| S13 | cuantitativo  | [[slides/S13_asimetria.md]]                          |
+| S14 | 2x2           | [[slides/S14_skin_in_the_game.md]]                   |
+| S15 | cita          | [[slides/S15_agente.md]]                             |
+| S16 | cuantitativo  | [[slides/S16_horizonte.md]]                          |
+| S17 | stepper       | [[slides/S17_deep_agents.md]]                        |
+| S18 | cita          | [[slides/S18_harness.md]]                            |
+| S19 | anexo         | [[slides/S19_harness_visual.md]]                     |
+| S20 | cita          | [[slides/S20_jensen.md]]                             |
+| S21 | comparativa   | [[slides/S21_harnesses_produccion.md]]               |
+| S22 | visual        | [[slides/S22_harness_logos.md]]                      |
+| S23 | anexo         | [[slides/S23_estrategia.md]]                         |
+| S24 | tabla         | [[slides/S24_autoresearch.md]]                       |
+| S25 | anexo         | [[slides/S25_autoresearch_visual.md]]                |
+| S26 | visual        | [[slides/S26_timeline_visual.md]]                    |
+| S27 | timeline      | [[slides/S27_timeline.md]]                           |
+| S28 | tabla         | [[slides/S28_historia.md]]                           |
+| S29 | anexo         | [[slides/S29_aprende.md]]                            |
+| S30 | anexo         | [[slides/S30_construye.md]]                          |
+| S31 | manifesto     | [[slides/S31_manifesto.md]]                          |
+| S32 | cierre        | [[slides/S32_cierre.md]]                             |
 
 ## Decisiones globales
 
