@@ -38,10 +38,6 @@ Estudiantes y profesionales que quieren entender el campo de los agentes **antes
 - `build/` — HTML y PDF generados (deck.pdf es la última versión)
 - `manual.md` — guía editorial del deck
 
-## Stack
-
-Construido con [Skill_Slides_Datastrat](https://github.com/angelgalvisc/Skill_Slides_Datastrat) — un harness de slides en Markdown que renderiza a HTML + PDF.
-
 ## Autor
 
 **Angel Galvis** · Founder & Managing Partner at [datastrat.co](https://datastrat.co)
