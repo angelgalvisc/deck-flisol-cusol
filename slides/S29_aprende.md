@@ -59,7 +59,7 @@ content:
         <span class="n">2</span>
         <div class="col">
           <div class="h">Lee un harness abierto entero</div>
-          <div class="sub">Cinco harnesses con código abierto, cada uno con una decisión de diseño distinta. Leer uno completo es la curva de aprendizaje más rápida que existe.</div>
+          <div class="sub">Cinco harnesses con código abierto, cada uno con una decisión de diseño distinta. Probar uno y adaptarlo a tu caso: la curva de aprendizaje más rápida que existe.</div>
           <div class="stack-table">
             <span class="repo">Hermes</span>
             <span class="trait">learning loop · memoria persistente <span class="mute">· aprende entre sesiones (Nous Research, MIT)</span> <a class="url" href="https://github.com/nousresearch/hermes-agent">nousresearch/hermes-agent</a></span>
