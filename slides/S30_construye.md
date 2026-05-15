@@ -41,7 +41,6 @@ content:
         <span class="n">3</span>
         <div class="col">
           <div class="h">Construye sobre data pública colombiana</div>
-          <div class="sub">Tres puertas de entrada a la data pública del país. Ninguna pide trámite. El patrón <em>scout + analista</em> del Caso A funciona en cualquiera de ellas.</div>
           <div class="datasets">
             <a class="dn" href="https://www.datos.gov.co/">datos.gov.co</a>
             <span class="dd">Socrata SODA · REST · SDKs en Python, R, JS, .NET <span class="mute">· catálogo central del Estado (miles de datasets)</span></span>
@@ -60,7 +59,7 @@ content:
         <span class="n">4</span>
         <div class="col">
           <div class="h">Emprende con deep agents — no con chatbots</div>
-          <div class="sub">Un chatbot responde una pregunta. Un deep agent sostiene una operación de horas. Cualquier trabajo humano de 4-8 horas es un producto posible.</div>
+          <div class="sub">Automatizar actividades con trabajo equivalente de larga duración es más valorado en la industria.</div>
           <div class="agent-vs">
             <div class="left">
               <div class="col-head">Agente normal</div>

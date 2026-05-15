@@ -59,7 +59,7 @@ content:
         <span class="n">2</span>
         <div class="col">
           <div class="h">Lee un harness abierto entero</div>
-          <div class="sub">Cinco harnesses con código abierto, cada uno con una decisión de diseño distinta. Probar uno y adaptarlo a tu caso: la curva de aprendizaje más rápida que existe.</div>
+          <div class="sub">Cinco harnesses con código abierto, cada uno con una decisión de diseño distinta. Probar uno y adaptarlo a un caso: la forma más eficiente de aprender.</div>
           <div class="stack-table">
             <span class="repo">Hermes</span>
             <span class="trait">learning loop · memoria persistente <span class="mute">· aprende entre sesiones (Nous Research, MIT)</span> <a class="url" href="https://github.com/nousresearch/hermes-agent">nousresearch/hermes-agent</a></span>
@@ -68,7 +68,7 @@ content:
             <span class="repo">NanoClaw</span>
             <span class="trait">aislamiento + comprensible <span class="mute">· cada agente en un contenedor Linux (Docker o Apple Container) · si el agente hace algo raro, no toca tu máquina</span> <a class="url" href="https://github.com/nanocoai/nanoclaw">nanocoai/nanoclaw</a></span>
             <span class="repo">PicoClaw</span>
-            <span class="trait">embedded · Go · &lt;10MB RAM <span class="mute">· corre en Raspberry Pi Zero (~$10 USD) · ideal para dispositivos en campo</span> <a class="url" href="https://github.com/sipeed/picoclaw">sipeed/picoclaw</a></span>
+            <span class="trait">embedded · Go · &lt;10MB RAM <span class="mute">· corre en Raspberry Pi Zero (~$20 USD) · ideal para dispositivos en campo</span> <a class="url" href="https://github.com/sipeed/picoclaw">sipeed/picoclaw</a></span>
             <span class="repo">NullClaw</span>
             <span class="trait">ultra-minimal · <strong>Zig</strong> · binario 678KB · 1MB RAM <span class="mute">· arranca en 2ms · cabe en cualquier microcontrolador</span> <a class="url" href="https://github.com/nullclaw/nullclaw">nullclaw/nullclaw</a></span>
           </div>
