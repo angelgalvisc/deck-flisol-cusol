@@ -5,7 +5,7 @@ visibility: public
 client: cusol
 project: deck-flisol
 presentation_name: Deep Agents · charla Flisol / Cusol UIS·UTS
-total_slides: 25
+total_slides: 29
 aesthetic: datastrat/v1
 delivery_mode: quick_draft
 created: 2026-05-13
@@ -29,9 +29,9 @@ Derivado del deck [redacted] original (`[redacted]`). Cambios principales aplica
 
 - Headers globales: `Flisol · Cusol · 2026` / `2026-05` / `Flisol | datastrat`.
 - Nueva **S04_caso_a.md** (Caso A · Licitaciones públicas SECOP II, multi-agente: scout + deep agent · industria-agnóstico). Reordenado al inicio del bloque de casos para liderar con la pieza más fuerte para CUSOL; reenumerado de C → A para que la letra coincida con la posición.
-- Nueva **S08_timeline.md** (timeline · 5 fases con ecuaciones canónicas + nomenclatura).
-- Nueva **S09_historia.md** (tabla histórica · cuándo se consolidó cada fase y quién la acuñó, con referencias APA verificadas).
-- **S11_skin_in_the_game.md** (matriz 2×2): ejemplos del cuadrante naranja reescritos a casos generales (código, refactoring, bugs, análisis, investigación).
+- Nueva **S20_timeline.md** (timeline · 5 fases con ecuaciones canónicas + nomenclatura). Movida al final del recorrido conceptual para funcionar como síntesis tras el deep dive de autoresearch (no como apertura) — pedagógicamente mejor para audiencia CUSOL.
+- Nueva **S21_historia.md** (tabla histórica · cuándo se consolidó cada fase y quién la acuñó, con referencias APA verificadas). Compañera de S20, también movida al final.
+- **S09_skin_in_the_game.md** (matriz 2×2): ejemplos del cuadrante naranja reescritos a casos generales (código, refactoring, bugs, análisis, investigación).
 - Resto del contenido mantenido idéntico al deck [redacted]. Decisiones de excluir/adaptar slides fintech quedan pendientes.
 
 ## Orden canónico de slides
@@ -39,30 +39,34 @@ Derivado del deck [redacted] original (`[redacted]`). Cambios principales aplica
 | SXX | tipo          | slide                                                |
 |-----|---------------|------------------------------------------------------|
 | S01 | cover         | [[slides/S01_portada.md]]                            |
-| S02 | tesis         | [[slides/S02_promesa.md]]                            |
-| S03 | comparativa   | [[slides/S03_topologia.md]]                          |
-| S04 | tesis         | [[slides/S04_caso_a.md]]                             |
-| S05 | tesis         | [[slides/S05_caso_b.md]]                             |
-| S06 | tabla         | [[slides/S06_cli_mcp.md]]                            |
-| S07 | tesis         | [[slides/S07_caso_c.md]]                             |
-| S08 | timeline      | [[slides/S08_timeline.md]]                           |
-| S09 | tabla         | [[slides/S09_historia.md]]                           |
-| S10 | cuantitativo  | [[slides/S10_asimetria.md]]                          |
-| S11 | 2x2           | [[slides/S11_skin_in_the_game.md]]                   |
-| S12 | cita          | [[slides/S12_agente.md]]                             |
-| S13 | cuantitativo  | [[slides/S13_horizonte.md]]                          |
-| S14 | stepper       | [[slides/S14_deep_agents.md]]                        |
-| S15 | cita          | [[slides/S15_harness.md]]                            |
-| S16 | anexo         | [[slides/S16_harness_visual.md]]                     |
-| S17 | cita          | [[slides/S17_jensen.md]]                             |
-| S18 | comparativa   | [[slides/S18_harnesses_produccion.md]]               |
+| S02 | agenda        | [[slides/S02_agenda_books.md]]                       |
+| S03 | tesis         | [[slides/S03_promesa.md]]                            |
+| S04 | comparativa   | [[slides/S04_topologia.md]]                          |
+| S05 | tesis         | [[slides/S05_caso_a.md]]                             |
+| S06 | tesis         | [[slides/S06_caso_b.md]]                             |
+| S07 | tabla         | [[slides/S07_cli_mcp.md]]                            |
+| S08 | tesis         | [[slides/S08_caso_c.md]]                             |
+| S09 | cuantitativo  | [[slides/S09_asimetria.md]]                          |
+| S10 | 2x2           | [[slides/S10_skin_in_the_game.md]]                   |
+| S11 | cita          | [[slides/S11_agente.md]]                             |
+| S12 | cuantitativo  | [[slides/S12_horizonte.md]]                          |
+| S13 | stepper       | [[slides/S13_deep_agents.md]]                        |
+| S14 | cita          | [[slides/S14_harness.md]]                            |
+| S15 | anexo         | [[slides/S15_harness_visual.md]]                     |
+| S16 | cita          | [[slides/S16_jensen.md]]                             |
+| S17 | comparativa   | [[slides/S17_harnesses_produccion.md]]               |
+| S18 | visual        | [[slides/S18_harness_logos.md]]                      |
 | S19 | anexo         | [[slides/S19_estrategia.md]]                         |
 | S20 | tabla         | [[slides/S20_autoresearch.md]]                       |
 | S21 | anexo         | [[slides/S21_autoresearch_visual.md]]                |
-| S22 | comparativa   | [[slides/S22_apuestas.md]]                           |
-| S23 | tabla         | [[slides/S23_ecosistema.md]]                         |
-| S24 | stepper       | [[slides/S24_oportunidades.md]]                      |
-| S25 | cierre        | [[slides/S25_cierre.md]]                             |
+| S22 | visual        | [[slides/S22_timeline_visual.md]]                    |
+| S23 | timeline      | [[slides/S23_timeline.md]]                           |
+| S24 | tabla         | [[slides/S24_historia.md]]                           |
+| S25 | anexo         | [[slides/S25_aprende.md]]                            |
+| S26 | anexo         | [[slides/S26_construye.md]]                          |
+| S27 | manifesto     | [[slides/S27_manifesto.md]]                          |
+| S28 | cierre        | [[slides/S28_cierre.md]]                             |
+| S29 | qr            | [[slides/S29_qr.md]]                                 |
 
 ## Decisiones globales
 
@@ -75,5 +79,6 @@ Derivado del deck [redacted] original (`[redacted]`). Cambios principales aplica
 
 ## Pendientes para próxima vuelta
 
-- Decidir qué slides excluir/adaptar para perfil CUSOL: candidatas a salir/transformar son S05 (caso B · restaurante WhatsApp, cifras en COP), S17 (cita Jensen Huang), S22 (Stripe/Revolut), S23 (ecosistema LATAM fintech), S24 (oportunidades [redacted]). S07 (caso C · cuenta empresarial NIT) se mantiene, reframed como ángulo de emprendimiento + deep agents.
+- S22 (Stripe/Revolut), S23 (ecosistema LATAM fintech), S24 (oportunidades [redacted]) **eliminados** — eran artefactos del deck [redacted], irrelevantes para CUSOL. Reemplazados por dos slides nuevos: S22_oportunidades_empezar (palancas 1-2: harnesses abiertos + data pública) y S23_oportunidades_posicionarte (palancas 3-4: harness engineering + deep agents para emprender).
+- Decidir si excluir S05 (caso B · restaurante WhatsApp, cifras en COP) y S15 (cita Jensen Huang) — pendiente. S07 (caso C · cuenta empresarial NIT) se mantiene, reframed como ángulo de emprendimiento + deep agents.
 - Cambiar header derecho a fecha exacta del evento si aplica (hoy `2026-05`, podría afinarse a `2026-05-15`).

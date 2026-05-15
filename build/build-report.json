@@ -1,7 +1,7 @@
 {
   "project": "/Users/agc/Documents/Deck_Flisol",
   "skill_root": "/Users/agc/skills/Skill_Slides_Datastrat",
-  "total_slides": 25,
+  "total_slides": 29,
   "slides": [
     {
       "id": "S01_portada",
@@ -12,136 +12,136 @@
       "missing_placeholders": []
     },
     {
-      "id": "S02_promesa",
-      "file": "S02_promesa.md",
+      "id": "S02_agenda_books",
+      "file": "S02_agenda_books.md",
       "position": 2,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S03_topologia",
-      "file": "S03_topologia.md",
+      "id": "S03_promesa",
+      "file": "S03_promesa.md",
       "position": 3,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S04_caso_a",
-      "file": "S04_caso_a.md",
+      "id": "S04_topologia",
+      "file": "S04_topologia.md",
       "position": 4,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S05_caso_b",
-      "file": "S05_caso_b.md",
+      "id": "S05_caso_a",
+      "file": "S05_caso_a.md",
       "position": 5,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S06_cli_mcp",
-      "file": "S06_cli_mcp.md",
+      "id": "S06_caso_b",
+      "file": "S06_caso_b.md",
       "position": 6,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S07_caso_c",
-      "file": "S07_caso_c.md",
+      "id": "S07_cli_mcp",
+      "file": "S07_cli_mcp.md",
       "position": 7,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S08_timeline",
-      "file": "S08_timeline.md",
+      "id": "S08_caso_c",
+      "file": "S08_caso_c.md",
       "position": 8,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S09_historia",
-      "file": "S09_historia.md",
+      "id": "S09_asimetria",
+      "file": "S09_asimetria.md",
       "position": 9,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S10_asimetria",
-      "file": "S10_asimetria.md",
+      "id": "S10_skin_in_the_game",
+      "file": "S10_skin_in_the_game.md",
       "position": 10,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S11_skin_in_the_game",
-      "file": "S11_skin_in_the_game.md",
+      "id": "S11_agente",
+      "file": "S11_agente.md",
       "position": 11,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S12_agente",
-      "file": "S12_agente.md",
+      "id": "S12_horizonte",
+      "file": "S12_horizonte.md",
       "position": 12,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S13_horizonte",
-      "file": "S13_horizonte.md",
+      "id": "S13_deep_agents",
+      "file": "S13_deep_agents.md",
       "position": 13,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S14_deep_agents",
-      "file": "S14_deep_agents.md",
+      "id": "S14_harness",
+      "file": "S14_harness.md",
       "position": 14,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S15_harness",
-      "file": "S15_harness.md",
+      "id": "S15_harness_visual",
+      "file": "S15_harness_visual.md",
       "position": 15,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S16_harness_visual",
-      "file": "S16_harness_visual.md",
+      "id": "S16_jensen",
+      "file": "S16_jensen.md",
       "position": 16,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S17_jensen",
-      "file": "S17_jensen.md",
+      "id": "S17_harnesses_produccion",
+      "file": "S17_harnesses_produccion.md",
       "position": 17,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S18_harnesses_produccion",
-      "file": "S18_harnesses_produccion.md",
+      "id": "S18_harness_logos",
+      "file": "S18_harness_logos.md",
       "position": 18,
       "slide_type": "anexo",
       "canonical_type": "anexo",
@@ -172,33 +172,65 @@
       "missing_placeholders": []
     },
     {
-      "id": "S22_apuestas",
-      "file": "S22_apuestas.md",
+      "id": "S22_timeline_visual",
+      "file": "S22_timeline_visual.md",
       "position": 22,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S23_ecosistema",
-      "file": "S23_ecosistema.md",
+      "id": "S23_timeline",
+      "file": "S23_timeline.md",
       "position": 23,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S24_oportunidades",
-      "file": "S24_oportunidades.md",
+      "id": "S24_historia",
+      "file": "S24_historia.md",
       "position": 24,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
     },
     {
-      "id": "S25_cierre",
-      "file": "S25_cierre.md",
+      "id": "S25_aprende",
+      "file": "S25_aprende.md",
       "position": 25,
+      "slide_type": "anexo",
+      "canonical_type": "anexo",
+      "missing_placeholders": []
+    },
+    {
+      "id": "S26_construye",
+      "file": "S26_construye.md",
+      "position": 26,
+      "slide_type": "anexo",
+      "canonical_type": "anexo",
+      "missing_placeholders": []
+    },
+    {
+      "id": "S27_manifesto",
+      "file": "S27_manifesto.md",
+      "position": 27,
+      "slide_type": "anexo",
+      "canonical_type": "anexo",
+      "missing_placeholders": []
+    },
+    {
+      "id": "S28_cierre",
+      "file": "S28_cierre.md",
+      "position": 28,
+      "slide_type": "anexo",
+      "canonical_type": "anexo",
+      "missing_placeholders": []
+    },
+    {
+      "id": "S29_qr",
+      "file": "S29_qr.md",
+      "position": 29,
       "slide_type": "anexo",
       "canonical_type": "anexo",
       "missing_placeholders": []
@@ -206,7 +238,7 @@
   ],
   "errors": [],
   "type_usage": {
-    "anexo": 25
+    "anexo": 29
   },
   "deliverable_html": "cusol_deck-flisol_deep-agents-charla-flisol-cusol-uisuts_20260514.html"
 }

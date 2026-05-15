@@ -11,7 +11,7 @@ content:
   subtitle: ""
   body_html: |
     <style>
-      .s19.anexo-slide .body { top: 250px !important; bottom: 90px !important; overflow: visible !important; }
+      .s19.anexo-slide .body { top: 220px !important; bottom: 70px !important; overflow: visible !important; }
       .s19 { padding-top: 0; display: flex; flex-direction: column; align-items: center; }
       .s19 .layer { border: 1px solid var(--ink); border-radius: 8px; padding: 14px 24px; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; }
       .s19 .layer.outer { border: 2px solid var(--coral); padding-bottom: 18px; }
@@ -22,8 +22,10 @@ content:
       .s19 .layer.middle { width: 760px; background: var(--bg); margin-top: 8px; }
       .s19 .layer.inner { width: 520px; background: #F2F2F2; margin-top: 8px; padding-bottom: 14px; }
       .s19 .layer.inner .content { margin-bottom: 0; }
-      .s19 .closing { margin-top: 24px; font-size: 17px; color: var(--ink); line-height: 1.55; max-width: 1000px; text-align: left; }
+      .s19 .closing { margin-top: 18px; font-size: 16px; color: var(--ink); line-height: 1.5; max-width: 1000px; text-align: left; }
       .s19 .closing .insight { color: var(--coral); }
+      .s19 .nb { margin-top: 10px; font-size: 13px; color: var(--mute); line-height: 1.45; max-width: 1000px; text-align: left; font-style: italic; }
+      .s19 .nb strong { color: var(--ink); font-weight: 600; font-style: normal; }
     </style>
     <div class="s19">
       <div class="layer outer">
@@ -54,6 +56,9 @@ content:
         El modelo propone el siguiente paso.<br>
         El harness base lo ejecuta de forma estable.<br>
         El harness empresarial decide <span class="insight">qué puede hacer, con qué evidencia, bajo qué límites y cuándo escalar</span>.
+      </div>
+      <div class="nb">
+        Una empresa construye un <strong>lineamiento común</strong> (identidad, evidencia, compliance) y <strong>harnesses especializados por proceso o problema a resolver</strong>.
       </div>
     </div>
   caption: ""
