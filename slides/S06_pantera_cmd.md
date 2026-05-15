@@ -2,27 +2,33 @@
 slide_id: S06
 slide_type: anexo
 section: casos
-action_title: ""
+action_title: "Un prompt en lenguaje natural."
 position: 6
 status: draft
 evidences: []
 content:
-  eyebrow: "CASO A · DEMO · UN PROMPT"
+  eyebrow: "prueba con EL PANTERA CONSTRUCTORES S.A.S. · 1 / 4 · prompt"
   subtitle: ""
   body_html: |
     <style>
-      .s06.anexo-slide .body { top: 220px !important; bottom: 90px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; }
-      .s06 .term { width: 100%; max-width: 1200px; display: flex; justify-content: center; }
-      .s06 .term img { width: 100%; height: auto; display: block; box-shadow: 0 14px 36px rgba(0,0,0,0.22); border-radius: 6px; }
+      .s06.slide { background: var(--ink) !important; color: var(--bg) !important; }
+      .s06.slide .topbar, .s06.slide .bottombar { color: rgba(248,248,248,0.55) !important; }
+      .s06.slide .topbar .coord, .s06.slide .bottombar .num { color: var(--coral) !important; }
+      .s06.slide .rule-top, .s06.slide .rule-bot { background: rgba(248,248,248,0.22) !important; }
+      .s06.slide .action-title { color: var(--bg) !important; }
+      .s06.slide .eyebrow-pos .eyebrow { color: var(--coral) !important; }
+      .s06.anexo-slide .body { top: 280px !important; bottom: 100px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+      .s06 .out { width: 884px; max-width: 100%; display: flex; justify-content: center; }
+      .s06 .out img { width: 100%; height: auto; display: block; box-shadow: 0 18px 50px rgba(0,0,0,0.55); border-radius: 8px; }
     </style>
     <div class="s06">
-      <div class="term">
-        <img src="../assets/s06_pantera_cmd.png" alt="Comando en Claude Code: ejecutar Scout para EL PANTERA CONSTRUCTORES S.A.S." />
+      <div class="out">
+        <img src="../assets/s06_pantera_cmd.png" alt="Prompt en Claude Code para EL PANTERA CONSTRUCTORES S.A.S." />
       </div>
     </div>
   caption: ""
 ---
 
-# Caso A · comando
+# Caso A · prompt
 
-Un prompt en Claude Code dispara: leer SKILL.md → ejecutar Scout en modo reglas → abrir HTML resultante → resumir top 5. Toda la operación es lenguaje natural, sin código del usuario.
+Demo en vivo: un prompt natural a Claude Code dispara leer SKILL.md → ejecutar Scout en modo reglas → abrir HTML → resumir top 5. Sin código del usuario.
