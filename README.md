@@ -12,18 +12,15 @@ Tres temas que aún no tienen libro. Un mapa de cómo evolucionó la ingeniería
 
 ## Qué encontrarás
 
-**Las 5 fases de la ingeniería de IA** (data → model → context → harness → autoresearch) con sus ecuaciones canónicas y referencias APA verificadas.
+**Una tesis** — los agentes dejaron de ser "chat más inteligente". Son sistemas que operan sobre fuentes de verdad verificables, dirigidos por un harness y, en el límite, capaces de mejorarse a sí mismos mediante autoresearch.
 
-**3 casos concretos** de agentes en producción:
-- **Caso A** · Licitaciones públicas SECOP II (multi-agente: scout + deep agent · industria-agnóstico)
-- **Caso B** · Sistemas conversacionales con harness empresarial
-- **Caso C** · Onboarding asistido por agente
+**Un mapa de 5 fases** que cuenta cómo evolucionó la ingeniería de IA en 20 años — `data → model → context → harness → autoresearch` — con sus ecuaciones canónicas y referencias APA verificadas.
 
-**Comparativa de 5 harnesses open source** (mayo 2026): Hermes (Nous Research) · OpenClaw · NanoClaw · PicoClaw · NullClaw — cada uno con una decisión de diseño distinta.
+**Una distinción** entre agente normal (trabaja por solicitud, loop corto, entrega una respuesta) y deep agent (trabaja por misión, plan + sub-agentes + workspace persistente, entrega un artefacto verificable).
 
-**Estrategia de Harness Engineering corporativa** — modelo de 3 capas (modelo / harness base / harness empresarial) con la idea de plataforma común + harnesses especializados por proceso.
+**Una disciplina nueva: Harness Engineering** — qué es, por qué ninguna universidad la enseña aún, y por qué la ventaja competitiva del 2026-2030 vive ahí, no en el modelo.
 
-**4 palancas para empezar** — desde leer un harness abierto en un fin de semana hasta construir un producto sobre data pública colombiana.
+**Un manifesto** — el software libre nunca fue una licencia, fue la afirmación de que cualquiera puede construir. Los agentes son la herramienta más poderosa que la inteligencia natural ha diseñado.
 
 ## Referencias clave
 
