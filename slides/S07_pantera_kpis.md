@@ -18,8 +18,8 @@ content:
       .s07.slide .action-title { color: var(--bg) !important; }
       .s07.slide .eyebrow-pos .eyebrow { color: var(--coral) !important; }
       .s07.anexo-slide .body { top: 280px !important; bottom: 100px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; }
-      .s07 .out { width: 1280px; max-width: 100%; display: flex; justify-content: center; }
-      .s07 .out img { width: 100%; height: auto; display: block; box-shadow: 0 18px 50px rgba(0,0,0,0.55); border-radius: 8px; }
+      .s07 .out { display: flex; justify-content: center; align-items: center; max-height: 100%; }
+      .s07 .out img { max-height: 640px; max-width: 100%; width: auto; height: auto; display: block; box-shadow: 0 18px 50px rgba(0,0,0,0.55); border-radius: 8px; }
     </style>
     <div class="s07">
       <div class="out">
