@@ -38,7 +38,7 @@ content:
       .s01-bio .socials .handle { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--coral); margin-left: 4px; }
       .s01-bio .socials .web { font-family: var(--mono); font-size: 13px; color: var(--ink); text-decoration: none; margin-left: 6px; padding-left: 14px; border-left: 1px solid var(--rule); }
       .s01-bio .socials .web:hover { color: var(--coral); }
-      .s01-qr { width: 140px; height: 140px; flex-shrink: 0; }
+      .s01-qr { width: 280px; height: 280px; flex-shrink: 0; }
       .s01-qr img { width: 100%; height: 100%; display: block; }
     </style>
     <div class="s01-center">

@@ -25,7 +25,7 @@ content:
       .s32 .socials a:hover { color: var(--coral); }
       .s32 .socials a svg { width: 100%; height: 100%; fill: currentColor; }
       .s32 .socials .handle { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--coral); margin-left: 4px; }
-      .s32-qr { width: 200px; height: 200px; flex-shrink: 0; align-self: flex-end; }
+      .s32-qr { width: 400px; height: 400px; flex-shrink: 0; align-self: flex-end; }
       .s32-qr img { width: 100%; height: 100%; display: block; }
     </style>
     <div class="s32">
