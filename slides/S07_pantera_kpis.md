@@ -2,12 +2,12 @@
 slide_id: S07
 slide_type: anexo
 section: casos
-action_title: "190 oportunidades. $1,18 bill."
+action_title: ""
 position: 7
 status: draft
 evidences: []
 content:
-  eyebrow: "prueba con EL PANTERA CONSTRUCTORES S.A.S. · 2 / 4 · tablero ejecutivo"
+  eyebrow: "prueba con EL PANTERA CONSTRUCTORES S.A.S."
   subtitle: ""
   body_html: |
     <style>
@@ -17,9 +17,9 @@ content:
       .s07.slide .rule-top, .s07.slide .rule-bot { background: rgba(248,248,248,0.22) !important; }
       .s07.slide .action-title { color: var(--bg) !important; }
       .s07.slide .eyebrow-pos .eyebrow { color: var(--coral) !important; }
-      .s07.anexo-slide .body { top: 280px !important; bottom: 100px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; }
-      .s07 .out { display: flex; justify-content: center; align-items: center; max-height: 100%; }
-      .s07 .out img { max-height: 640px; max-width: 100%; width: auto; height: auto; display: block; box-shadow: 0 18px 50px rgba(0,0,0,0.55); border-radius: 8px; }
+      .s07.anexo-slide .body { top: 180px !important; bottom: 90px !important; overflow: hidden !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+      .s07 .out { display: flex; justify-content: center; align-items: center; max-height: 100%; max-width: 100%; }
+      .s07 .out img { max-height: 620px; max-width: 100%; width: auto; height: auto; display: block; box-shadow: 0 18px 50px rgba(0,0,0,0.55); border-radius: 8px; }
     </style>
     <div class="s07">
       <div class="out">
